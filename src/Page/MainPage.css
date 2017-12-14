@@ -45,14 +45,24 @@
 .input-group{
     width: 50%;
     max-width: 500px;
-    position: relative;
-    top:50px;
+    position: absolute;
+    top:5ovh;
+   
   
 
 }
+.input-group input{
+   
+    height: 40px;
+
+}
+
 .input-group .input-group-btn button{
-    background: blue;
+    background: #00EDFF;
     color: white;
+      
+    font-family: SegoeUI;
+    font-size: 19px;
 }
 
 
@@ -77,7 +87,7 @@
     height: 35px;
     min-height: 25px;
   
-    background-color:  rgba(0, 238, 255, 0.76);
+    background-color:  #00EDFF;
     border-radius: 20px;
 
   
@@ -88,8 +98,8 @@
    
     color: white;
     
-    font-family: iCiel-Altus;
-    font-size: 20px;
+    font-family: SegoeUI;
+    font-size: 17px;
   
     transition: all ease .5s;
     user-select: none;
@@ -98,7 +108,7 @@
 .login-button:active{
     
     background: white;
-    zoom: 0.92;
+    transform: scale(0.7);
   }
 
 
@@ -122,8 +132,8 @@
    
     color: white;
     
-    font-family: iCiel-Altus;
-    font-size: 18px;
+    font-family: SegoeUI;
+    font-size: 16px;
   
     transition: all ease .5s;
     user-select: none;
@@ -155,7 +165,7 @@
     color: white;
     
     
-    font-family: iCiel-Altus;
+    font-family: SegoeUI;
     font-size: 15px;
 
 }
@@ -186,7 +196,8 @@
     color: white;
     
     
-    font-family: iCiel-Altus;
+      
+    font-family: SegoeUI;
     font-size: 15px;
 
 }

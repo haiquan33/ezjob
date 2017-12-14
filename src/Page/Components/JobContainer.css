@@ -1,0 +1,16 @@
+.containerName{
+    background: #00EDFF;
+    width: 30%;
+    
+    font-family: SegoeUI-Bold;
+    font-size: 20px;
+    color: white;
+}
+.containerJob{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    
+    border: 2px solid #00EDFF;
+    padding: 10px;
+}

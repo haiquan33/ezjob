@@ -1,0 +1,81 @@
+.jobItemContainer{
+    border: 0.5px solid #00EDFF; 
+    padding: 10px;
+    border-radius: 5px;
+   margin: 5px;
+}
+
+.likeBtn{
+    width: 45px;
+    height: 45px;
+      
+    transition: all ease .5s;
+    user-select: none;
+}
+.likeBtn:active{
+
+    transform: scale(1.25);
+}
+
+.jobName{
+    font-family: SegoeUI;
+    font-size: 20px;
+    margin-bottom: 5px;
+
+}
+.compName{
+    color: #977878;
+    margin: 5px 5px 5px 0px;
+    padding-bottom: 10px;
+}
+
+.shortDes{
+    margin-left: 50px;
+}
+.desImg{
+    width: 20px;
+    height: 20px;
+}
+
+.desText{
+    font-family: SegoeUI;
+    color:#00EDFF;
+    font-family: SegoeUI-Bold;
+}
+
+
+.apply-button{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 90px;
+    min-width: 100px;
+    height: 50px;
+    min-height: 25px;
+  
+    background-color:  #00EDFF;
+    border-radius: 10px;
+
+    margin:10px 10px 10px 40px;
+    
+ 
+    border-width:0;
+    color:'white';
+   
+    color: white;
+    
+    font-family: SegoeUI;
+    font-size: 14px;
+  
+
+  
+
+    transition: all ease .5s;
+    user-select: none;
+}
+
+.apply-button:active{
+    
+    background: white;
+    transform: scale(0.7);
+  }

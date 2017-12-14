@@ -4,11 +4,11 @@ import JobContainer from './JobContainer.js';
 import { connect } from 'react-redux';
 
 
-class UrgentList extends Component{
+class NewJobList extends Component{
         render(){
             return(
                 <div >
-                        <JobContainer containerLabel={"Công việc gấp"} urgentJobList={this.props.urgentJobList}/>
+                        <JobContainer containerLabel={"Công việc mới"} newJobList={this.props.newJobList}/>
                         
                 </div>
            
@@ -17,7 +17,7 @@ class UrgentList extends Component{
 }
 
 function mapState2Props(state) {
-    return { urgentJobList: state.urgentJobList};
+    return { newJobList: state.newJobList};
   }
   
-export default connect(mapState2Props)(UrgentList);
+export default connect(mapState2Props)(newList);
