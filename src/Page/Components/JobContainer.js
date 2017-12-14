@@ -7,11 +7,11 @@ export default class JobContainer extends Component{
 
 
     render(){
-        var jobs = this.props.urgentJobList.map(function (job) {
+        var jobs = this.props.JobList.map(function (job) {
             var props = {
-                Jobname: job.Jobname,
-                Compname:job.Compname,
-                Salary:job.Salary,
+                Jobname: job.jobName,
+                Compname:job.companyName,
+                Salary:job.salary,
                 Deadline:job.Deadline,
             }
             return (
@@ -21,7 +21,7 @@ export default class JobContainer extends Component{
         }, this);
 
         return(
-            <div style={{display:'flex',flexDirection:'column',alignItems:'left'}}>
+            <div style={{display:'flex',flexDirection:'column',alignItems:'left',margin:'20px'}}>
                     <div className='containerName'>{this.props.containerLabel}</div>
                     <div className="containerJob">
                         {jobs}

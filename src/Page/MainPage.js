@@ -2,18 +2,36 @@ import React, { Component } from 'react';
 import background from '../Assets/bg-main.jpg';
 import logo from '../Assets/logo.png';
 import down from '../Assets/down.png';
+import GGlogin from '../Assets/GGlogin.png';
+import FBlogin from '../Assets/FBlogin.png';
 import { Image, InputGroup, FormControl, Button } from 'react-bootstrap';
 import MainPageBody from './Components/MainPageBody.js'
-
+import Modal from 'react-modal'
 
 import './MainPage.css';
 
+
+var appElement = document.getElementById('root');
+
+Modal.setAppElement(appElement);
 export default class MainPage extends Component {
   constructor(props) {
     super(props);
-    this.state = { backgroundOpacity: 1 };
+    this.state = { backgroundOpacity: 1, showLoginModal: false, showSearchBox: 'visible' };
+
     this.handleScroll = this.handleScroll.bind(this);
+    this.handleOpenLoginModal = this.handleOpenLoginModal.bind(this);
+    this.handleCloseLoginModal = this.handleCloseLoginModal.bind(this);
   }
+
+  handleOpenLoginModal() {
+    this.setState({ showLoginModal: true, showSearchBox: 'hidden' });
+  }
+
+  handleCloseLoginModal() {
+    this.setState({ showLoginModal: false, showSearchBox: 'visible' });
+  }
+
   componentDidMount() {
     window.addEventListener('scroll', this.handleScroll);
   }
@@ -29,6 +47,7 @@ export default class MainPage extends Component {
 
     return (
       <div className="MainPage">
+
         <div className="Background" style={{
           backgroundImage: "url(" + background + ")",
           backgroundSize: 'cover',
@@ -37,7 +56,7 @@ export default class MainPage extends Component {
         >
           <div className="logContainer">
             <div className='register-button'>Đăng kí</div>
-            <div className='login-button'>Đăng nhập</div>
+            <div className='login-button' onClick={this.handleOpenLoginModal}>Đăng nhập</div>
 
           </div>
           <Image className='logo' src={logo} style={{
@@ -50,7 +69,7 @@ export default class MainPage extends Component {
             flexDirection: 'column',
             alignItems: 'center'
           }}>
-            <InputGroup>
+            <InputGroup style={{ visibility: this.state.showSearchBox }}>
 
               <FormControl type="text" />
               <InputGroup.Button>
@@ -66,7 +85,38 @@ export default class MainPage extends Component {
             <Image src={down} style={{ width: '130px', height: '55px' }} />
           </div>
         </div>
-        <MainPageBody/>
+        <MainPageBody />
+        <Modal
+          isOpen={this.state.showLoginModal}
+          contentLabel="Đăng nhập"
+          onRequestClose={this.handleCloseLoginModal}
+          className="LoginModal"
+          style={{
+            
+            content : {
+              position                   : 'absolute',
+              top                        : '35vh',
+              left                       : '35vw',
+              right                      : '35vw',
+              bottom                     : '35vh',
+              border                     : '1px solid #ccc',
+              background                 : '#fff',
+              overflow                   : 'auto',
+              WebkitOverflowScrolling    : 'touch',
+              borderRadius               : '4px',
+              outline                    : 'none',
+            
+          
+            }
+          }}
+        >
+          <div style={{display:'flex',flexDirection:'column',alignItems:'center'}}>
+            <div className="commonText"> Bạn có thể </div>
+            <Image className="socialLogin" src={GGlogin} />
+            <div  className="commonText"> Hoặc </div>
+            <Image className="socialLogin" src={FBlogin} />
+          </div>
+        </Modal>
       </div>
     );
   }

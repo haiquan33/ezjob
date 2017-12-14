@@ -5,30 +5,30 @@ const defaultState = {
     totalQuantity:0,
     urgentJobList:[
         {
-            Jobname:"Kĩ sư IT frontend",
-            Compname:"Công ty cổ phần 1 thành viên ezJob",
-            Salary:"5000 USD",
+            jobName:"Kĩ sư IT frontend",
+            companyName:"Công ty cổ phần 1 thành viên ezJob",
+            salary:"5000 USD",
             Deadline:'31/12/2017'
 
         },
         {
-            Jobname:"Nhân Viên Tư Vấn Thời Trang ",
-            Compname:"CHUỒN CHUỒN ỚT AODAI BOUTIQUE",
-            Salary:"5000 USD",
+            jobName:"Nhân Viên Tư Vấn Thời Trang ",
+            companyName:"CHUỒN CHUỒN ỚT AODAI BOUTIQUE",
+            salary:"5000 USD",
             Deadline:'31/12/2017'
 
         },
         {
-            Jobname:"Nhân Viên Thị Trường ",
-            Compname:"CÔNG TY TNHH CỬA ĐẠI PHÁT",
-            Salary:"10-15tr",
+            jobName:"Nhân Viên Thị Trường ",
+            companyName:"CÔNG TY TNHH CỬA ĐẠI PHÁT",
+            salary:"10-15tr",
             Deadline:'31/12/2017'
 
         },
         {
-            Jobname:"Nhân Viên Lễ Tân Phòng Gym",
-            Compname:"CÔNG TY TNHH SAIGON LIFESTYLE",
-            Salary:"10-15tr",
+            jobName:"Nhân Viên Lễ Tân Phòng Gym",
+            companyName:"CÔNG TY TNHH SAIGON LIFESTYLE",
+            salary:"10-15tr",
             Deadline:'31/12/2017'
 
         }
@@ -36,35 +36,66 @@ const defaultState = {
     ],
     newJobList:[
         {
-            Jobname:"Kĩ sư IT frontend",
-            Compname:"Công ty cổ phần 1 thành viên ezJob",
-            Salary:"5000 USD",
+            jobName:"Kĩ sư IT frontend",
+            companyName:"Công ty cổ phần 1 thành viên ezJob",
+            salary:"5000 USD",
             Deadline:'31/12/2017'
 
         },
         {
-            Jobname:"Nhân Viên Tư Vấn Thời Trang ",
-            Compname:"CHUỒN CHUỒN ỚT AODAI BOUTIQUE",
-            Salary:"5000 USD",
+            jobName:"Nhân Viên Tư Vấn Thời Trang ",
+            companyName:"CHUỒN CHUỒN ỚT AODAI BOUTIQUE",
+            salary:"5000 USD",
             Deadline:'31/12/2017'
 
         },
         {
-            Jobname:"Nhân Viên Thị Trường ",
-            Compname:"CÔNG TY TNHH CỬA ĐẠI PHÁT",
-            Salary:"10-15tr",
+            jobName:"Nhân Viên Thị Trường ",
+            companyName:"CÔNG TY TNHH CỬA ĐẠI PHÁT",
+            salary:"10-15tr",
             Deadline:'31/12/2017'
 
         },
         {
-            Jobname:"Nhân Viên Lễ Tân Phòng Gym",
-            Compname:"CÔNG TY TNHH SAIGON LIFESTYLE",
-            Salary:"10-15tr",
+            jobName:"Nhân Viên Lễ Tân Phòng Gym",
+            companyName:"CÔNG TY TNHH SAIGON LIFESTYLE",
+            salary:"10-15tr",
             Deadline:'31/12/2017'
 
         }
 
-    ]
+    ],
+    recJobList:[
+        {
+            jobName:"Kĩ sư IT frontend",
+            companyName:"Công ty cổ phần 1 thành viên ezJob",
+            salary:"5000 USD",
+            Deadline:'31/12/2017'
+
+        },
+        {
+            jobName:"Nhân Viên Tư Vấn Thời Trang ",
+            companyName:"CHUỒN CHUỒN ỚT AODAI BOUTIQUE",
+            salary:"5000 USD",
+            Deadline:'31/12/2017'
+
+        },
+        {
+            jobName:"Nhân Viên Thị Trường ",
+            companyName:"CÔNG TY TNHH CỬA ĐẠI PHÁT",
+            salary:"10-15tr",
+            Deadline:'31/12/2017'
+
+        },
+        {
+            jobName:"Nhân Viên Lễ Tân Phòng Gym",
+            companyName:"CÔNG TY TNHH SAIGON LIFESTYLE",
+            salary:"10-15tr",
+            Deadline:'31/12/2017'
+
+        }
+
+    ],
 }
 
 const reducer = (state = defaultState, action) => {

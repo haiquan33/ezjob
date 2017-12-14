@@ -8,7 +8,7 @@ class NewJobList extends Component{
         render(){
             return(
                 <div >
-                        <JobContainer containerLabel={"Công việc mới"} newJobList={this.props.newJobList}/>
+                        <JobContainer containerLabel={"Công việc mới"} JobList={this.props.newJobList}/>
                         
                 </div>
            

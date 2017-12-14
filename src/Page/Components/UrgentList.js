@@ -8,7 +8,7 @@ class UrgentList extends Component{
         render(){
             return(
                 <div >
-                        <JobContainer containerLabel={"Công việc gấp"} urgentJobList={this.props.urgentJobList}/>
+                        <JobContainer containerLabel={"Công việc gấp"} JobList={this.props.urgentJobList}/>
                         
                 </div>
            

@@ -7,6 +7,8 @@
     justify-items: center;
 
 }
+
+
 .Background{
     height: 100vh;
     width: 100%;
@@ -45,8 +47,8 @@
 .input-group{
     width: 50%;
     max-width: 500px;
-    position: absolute;
-    top:5ovh;
+    position: relative;
+    top:4vh;
    
   
 
@@ -199,5 +201,25 @@
       
     font-family: SegoeUI;
     font-size: 15px;
+
+}
+
+.socialLogin{
+    margin: 10px;
+    width: 350px;
+     
+    transition: all ease .5s;
+    user-select: none;
+}
+.socialLogin:active{
+    
+   
+    transform: scale(0.7);
+  }
+
+.commonText{
+    margin: 10px;
+    font-family: SegoeUI-Bold;
+    font-size: 20px;
 
 }
