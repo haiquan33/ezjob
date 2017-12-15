@@ -94,11 +94,12 @@ export default class MainPage extends Component {
           style={{
             
             content : {
-              position                   : 'absolute',
-              top                        : '35vh',
-              left                       : '35vw',
-              right                      : '35vw',
-              bottom                     : '35vh',
+              position: 'absolute',
+              left: '50%',
+              top:'50%',
+              transform :'translate(-50%,-50%)',
+              width:'400px',
+              height:'260px',
               border                     : '1px solid #ccc',
               background                 : '#fff',
               overflow                   : 'auto',
