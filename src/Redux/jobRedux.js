@@ -1,8 +1,11 @@
-import { createStore } from 'redux';
+import { createStore,combineReducers } from 'redux';
+import { routerReducer } from 'react-router-redux'
 
 const defaultState = {
     num: 1,
     totalQuantity:0,
+    isEmployee:false,
+    isEmployer:false,
     urgentJobList:[
         {
             jobName:"Kĩ sư IT frontend",
@@ -102,7 +105,9 @@ const reducer = (state = defaultState, action) => {
     let count_temp=0;
     switch (action.type) {
         case 'ADD': return { ...state, num: state.num + 1 };
-     
+        case 'FBLogin': return {...state,isEmployee:true};
+        case 'GGLogin': return {...state,isEmployer:true};
+        case 'LogOut': return {...state,isEmployer:false,isEmployee:false};
         default: return state;
     }
 }

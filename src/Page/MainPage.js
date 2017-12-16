@@ -5,16 +5,20 @@ import down from '../Assets/down.png';
 import GGlogin from '../Assets/GGlogin.png';
 import FBlogin from '../Assets/FBlogin.png';
 import { Image, InputGroup, FormControl, Button } from 'react-bootstrap';
-import MainPageBody from './Components/MainPageBody.js'
+import MainPageBody from './Components/MainPageBody.js';
+import HeaderBarEmployee from './Components/headerBarEmployee.js'
 import Modal from 'react-modal'
 
+import { connect } from 'react-redux'
 import './MainPage.css';
 
 
 var appElement = document.getElementById('root');
 
 Modal.setAppElement(appElement);
-export default class MainPage extends Component {
+
+
+class MainPage extends Component {
   constructor(props) {
     super(props);
     this.state = { backgroundOpacity: 1, showLoginModal: false, showSearchBox: 'visible' };
@@ -22,8 +26,19 @@ export default class MainPage extends Component {
     this.handleScroll = this.handleScroll.bind(this);
     this.handleOpenLoginModal = this.handleOpenLoginModal.bind(this);
     this.handleCloseLoginModal = this.handleCloseLoginModal.bind(this);
+    this.loginbyGoogle = this.loginbyGoogle.bind(this);
+    this.loginbyFB = this.loginbyFB.bind(this);
   }
 
+  loginbyGoogle() {
+    this.props.dispatch({ type: 'GGLogin' });
+    this.handleCloseLoginModal();
+  }
+
+  loginbyFB() {
+    this.props.dispatch({ type: 'FBLogin' });
+    this.handleCloseLoginModal();
+  }
   handleOpenLoginModal() {
     this.setState({ showLoginModal: true, showSearchBox: 'hidden' });
   }
@@ -44,6 +59,25 @@ export default class MainPage extends Component {
 
   }
   render() {
+    var headerBar;
+
+
+    if (!this.props.isEmployee && !this.props.isEmployer) {
+      headerBar = <div className="logContainer">
+        <div className='register-button'>Đăng kí</div>
+        <div className='login-button' onClick={this.handleOpenLoginModal}>Đăng nhập</div>
+      </div>;
+    } else {
+      if (this.props.isEmployee) {
+        headerBar =<HeaderBarEmployee/>
+      } else {
+        headerBar = <HeaderBarEmployee/>;
+      }
+  
+    }
+
+
+
 
     return (
       <div className="MainPage">
@@ -54,11 +88,7 @@ export default class MainPage extends Component {
 
         }}
         >
-          <div className="logContainer">
-            <div className='register-button'>Đăng kí</div>
-            <div className='login-button' onClick={this.handleOpenLoginModal}>Đăng nhập</div>
-
-          </div>
+          {headerBar}
           <Image className='logo' src={logo} style={{
             opacity: this.state.backgroundOpacity
           }} />
@@ -92,30 +122,30 @@ export default class MainPage extends Component {
           onRequestClose={this.handleCloseLoginModal}
           className="LoginModal"
           style={{
-            
-            content : {
+
+            content: {
               position: 'absolute',
               left: '50%',
-              top:'50%',
-              transform :'translate(-50%,-50%)',
-              width:'400px',
-              height:'260px',
-              border                     : '1px solid #ccc',
-              background                 : '#fff',
-              overflow                   : 'auto',
-              WebkitOverflowScrolling    : 'touch',
-              borderRadius               : '4px',
-              outline                    : 'none',
-            
-          
+              top: '50%',
+              transform: 'translate(-50%,-50%)',
+              width: '400px',
+              height: '260px',
+              border: '1px solid #ccc',
+              background: '#fff',
+              overflow: 'auto',
+              WebkitOverflowScrolling: 'touch',
+              borderRadius: '4px',
+              outline: 'none',
+
+
             }
           }}
         >
-          <div style={{display:'flex',flexDirection:'column',alignItems:'center'}}>
+          <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
             <div className="commonText"> Bạn có thể </div>
-            <Image className="socialLogin" src={GGlogin} />
-            <div  className="commonText"> Hoặc </div>
-            <Image className="socialLogin" src={FBlogin} />
+            <Image className="socialLogin" src={GGlogin} onClick={this.loginbyGoogle} />
+            <div className="commonText"> Hoặc </div>
+            <Image className="socialLogin" src={FBlogin} onClick={this.loginbyFB} />
           </div>
         </Modal>
       </div>
@@ -123,3 +153,8 @@ export default class MainPage extends Component {
   }
 }
 
+function mapState2Props(state) {
+  return { num: state.num, isEmployee: state.isEmployee, isEmployer: state.isEmployer };
+}
+
+export default connect(mapState2Props)(MainPage);

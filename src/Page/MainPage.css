@@ -223,3 +223,49 @@
     font-size: 20px;
 
 }
+
+.headerBar{
+    position: fixed;
+    top:0px;
+
+    display: flex;
+    flex-direction: row;
+    align-content: center;
+    align-items: center;
+    justify-content: flex-end;
+    padding: 5px;
+    width: 100%;
+    height: 50px;
+    background: #00EDFF;
+}
+.avatar{
+    width: 40px;
+    height: 40px;
+    border:3px solid white;
+}
+
+.dropdown {
+    display: inline-block;
+    
+}
+
+.dropdown__content {
+    display: none;
+    position: absolute;
+    right: 0px;
+    width:150px;
+    background: white;
+}
+
+.dropdown--active .dropdown__content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    justify-items: center;
+    align-content: center;
+}
+
+.nav-customDropdown li a{
+  font-family: SegoeUI-Bold;
+  color: #00EDFF;
+}
