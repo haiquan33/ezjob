@@ -4,12 +4,10 @@ import './App.css';
 import MainPage from './Page/MainPage.js';
 import UserCV from './Page/UserCV.js';
 import axios from 'axios';
-import {
-  BrowserRouter as Router,
-  Route,
-  Link,
-  Switch
-} from 'react-router-dom';
+
+
+
+import { Route } from 'react-router'
 
 class App extends Component {
   constructor(props) {

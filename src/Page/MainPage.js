@@ -9,7 +9,11 @@ import MainPageBody from './Components/MainPageBody.js';
 import HeaderBarEmployee from './Components/headerBarEmployee.js'
 import Modal from 'react-modal'
 
+import {loginGG} from '../API/loginAPI';
+
 import { connect } from 'react-redux'
+import { bindActionCreators } from 'redux';
+
 import './MainPage.css';
 
 
@@ -31,7 +35,7 @@ class MainPage extends Component {
   }
 
   loginbyGoogle() {
-    this.props.dispatch({ type: 'GGLogin' });
+    this.props.loginGG();
     this.handleCloseLoginModal();
   }
 
@@ -154,7 +158,14 @@ class MainPage extends Component {
 }
 
 function mapState2Props(state) {
-  return { num: state.num, isEmployee: state.isEmployee, isEmployer: state.isEmployer };
+  return { num: state.reducer.num, isEmployee: state.reducer.isEmployee, isEmployer: state.reducer.isEmployer };
 }
 
-export default connect(mapState2Props)(MainPage);
+const mapDispatchToProps = dispatch => {
+  return bindActionCreators({
+   loginGG
+  }, dispatch)
+
+}
+
+export default connect(mapState2Props,mapDispatchToProps)(MainPage);

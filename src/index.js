@@ -2,19 +2,34 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
-import registerServiceWorker from './registerServiceWorker';
-import {
-  BrowserRouter as Router,
-  Route,
-  Link,
-  Switch
-} from 'react-router-dom';
-import {Provider, connect} from 'react-redux';
-import store from './Redux/jobRedux.js';
+
+import thunkMiddleware from 'redux-thunk'
+import { createStore, combineReducers, applyMiddleware,compose } from 'redux';
+import { Provider } from 'react-redux';
+import createHistory from 'history/createBrowserHistory';
+import { Route } from 'react-router'
+import { ConnectedRouter, routerReducer, routerMiddleware, push } from 'react-router-redux'
+
+
+import { rootReducer } from './Redux/jobRedux.js';
+
+
+
+
+const history = createHistory()
+const middleware = routerMiddleware(history)
+const store = createStore(
+  rootReducer,
+  compose(
+    applyMiddleware(middleware,thunkMiddleware),
+    window.devToolsExtension ? window.devToolsExtension() : f => f, 
+  )
+)
+
 
 ReactDOM.render(<Provider store={store}>
-  <Router>
+  <ConnectedRouter history={history}>
     <App />
-   </Router>
-  </Provider>, document.getElementById('root'));
-registerServiceWorker();
+  </ConnectedRouter>
+</Provider>, document.getElementById('root'));
+

@@ -50,7 +50,7 @@ class RecJobList extends Component {
 }
 
 function mapState2Props(state) {
-    return { recJobList: state.recJobList};
+    return { recJobList: state.reducer.recJobList};
   }
   
 export default connect(mapState2Props)(RecJobList);

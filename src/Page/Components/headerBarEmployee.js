@@ -4,6 +4,9 @@ import Dropdown, { DropdownTrigger, DropdownContent } from 'react-simple-dropdow
 import {Nav, NavItem } from 'react-bootstrap';
 import avatar from '../../Assets/avatar.jpg';
 import { connect } from 'react-redux'
+
+import {push } from 'react-router-redux'
+
 class HeaderBarEmployee extends Component {
 
     constructor(props){
@@ -25,8 +28,8 @@ class HeaderBarEmployee extends Component {
                         
                      
                             <Nav bsStyle="customDropdown"  >
-                                <NavItem eventKey={1} href="/home">Tài khoản</NavItem>
-                                <NavItem eventKey={2} title="Item" href="/userCV">CV của bạn</NavItem>
+                                <NavItem eventKey={1} onClick={ ()=>{this.props.dispatch(push('/home'))} }>Tài khoản</NavItem>
+                                <NavItem eventKey={2} title="Item" onClick={ ()=>{this.props.dispatch(push('/userCV'))} }>CV của bạn</NavItem>
                                 <NavItem eventKey={3} onClick={this.SignOut}>Đăng thoát</NavItem>
                             </Nav>
                         
