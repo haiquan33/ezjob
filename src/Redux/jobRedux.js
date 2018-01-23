@@ -1,10 +1,13 @@
 import { createStore,combineReducers } from 'redux';
 import { routerReducer } from 'react-router-redux'
 
-import {LOGIN_GG_SUCCESS} from './Actions/actions' ;
+import {LOGIN_GG_SUCCESS,
+    START_CHECKING_LOGIN_INFO,
+    FINISH_CHECKING_LOGIN_INFO} from './Actions/actions' ;
 
 
 export const defaultState = {
+    isCheckingLoginInfo:false,
     num: 1,
     totalQuantity:0,
     isEmployee:false,
@@ -114,6 +117,8 @@ export const reducer = (state = defaultState, action) => {
         case 'FBLogin': return {...state,isEmployee:true};
         case LOGIN_GG_SUCCESS : return {...state,isEmployer:true};
         case 'LogOut': return {...state,isEmployer:false,isEmployee:false};
+        case START_CHECKING_LOGIN_INFO:return{...state,isCheckingLoginInfo:true};
+        case FINISH_CHECKING_LOGIN_INFO:return{...state,isCheckingLoginInfo:false};
         default: return state;
     }
 }

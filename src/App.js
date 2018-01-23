@@ -21,29 +21,7 @@ class App extends Component {
   }
   getJobList() {
 
-    axios.get('https://ezjob-server.herokuapp.com/api/jobs', { 'mode': 'no-cors' })
-      .then(
-      function (response) {
-        console.log(response);
-        if (response.code !== 200) {
-
-          return;
-        }
-
-        // Examine the text in the response  
-        response.json().then(function (data) {
-          if (data.code !== 0) {
-            console.log('Lỗi lấy dữ liệu ' +
-              data.message);
-          }
-
-
-        });
-      }
-      )
-      .catch(function (err) {
-        console.log('Fetch Error :-S', err);
-      });
+  
   }
   render() {
     return (

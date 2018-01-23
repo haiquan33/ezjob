@@ -2,6 +2,8 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
+import 'antd/dist/antd.css';
+
 
 import thunkMiddleware from 'redux-thunk'
 import { createStore, combineReducers, applyMiddleware,compose } from 'redux';

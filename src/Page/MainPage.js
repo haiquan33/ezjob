@@ -4,13 +4,22 @@ import logo from '../Assets/logo.png';
 import down from '../Assets/down.png';
 import GGlogin from '../Assets/GGlogin.png';
 import FBlogin from '../Assets/FBlogin.png';
+
 import { Image, InputGroup, FormControl, Button } from 'react-bootstrap';
-import MainPageBody from './Components/MainPageBody.js';
-import HeaderBarEmployee from './Components/headerBarEmployee.js'
+import { Modal as AntModal } from 'antd';
 import Modal from 'react-modal'
 
-import {loginGG} from '../API/loginAPI';
+//Custom Component 
+import MainPageBody from './Components/MainPageBody.js';
+import HeaderBarEmployee from './Components/headerBarEmployee.js'
+import SignUpForm from './Components/SignUpForm';
+import  WrappedLogInForm from './Components/LogInForm';
 
+//API
+import { loginGG, SignUp_manually,SignIn_manually } from '../API/loginAPI';
+
+
+//Redux component
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux';
 
@@ -25,13 +34,17 @@ Modal.setAppElement(appElement);
 class MainPage extends Component {
   constructor(props) {
     super(props);
-    this.state = { backgroundOpacity: 1, showLoginModal: false, showSearchBox: 'visible' };
+    this.state = { backgroundOpacity: 1, showLoginModal: false, showSignUpModal: false, showSearchBox: 'visible' };
 
     this.handleScroll = this.handleScroll.bind(this);
     this.handleOpenLoginModal = this.handleOpenLoginModal.bind(this);
     this.handleCloseLoginModal = this.handleCloseLoginModal.bind(this);
     this.loginbyGoogle = this.loginbyGoogle.bind(this);
     this.loginbyFB = this.loginbyFB.bind(this);
+    this.handleCloseSignUpModal=this.handleCloseSignUpModal.bind(this);
+    this.handleOpenSignUpModal=this.handleOpenSignUpModal.bind(this);
+
+
   }
 
   loginbyGoogle() {
@@ -44,15 +57,31 @@ class MainPage extends Component {
     this.handleCloseLoginModal();
   }
   handleOpenLoginModal() {
-    this.setState({ showLoginModal: true, showSearchBox: 'hidden' });
+    this.setState({ showLoginModal: true });
   }
 
   handleCloseLoginModal() {
-    this.setState({ showLoginModal: false, showSearchBox: 'visible' });
+    this.setState({ showLoginModal: false });
+  }
+
+  handleOpenSignUpModal(){
+    this.setState({showSignUpModal:true});
+  }
+  handleCloseSignUpModal(){
+    this.setState({showSignUpModal:false});
   }
 
   componentDidMount() {
     window.addEventListener('scroll', this.handleScroll);
+
+    let userInfo = {
+      email: "nvdaua@gmail.com",
+      password: '123456',
+    }
+    SignIn_manually(userInfo);
+
+
+
   }
   handleScroll() {
 
@@ -68,16 +97,16 @@ class MainPage extends Component {
 
     if (!this.props.isEmployee && !this.props.isEmployer) {
       headerBar = <div className="logContainer">
-        <div className='register-button'>Đăng kí</div>
+        <div className='register-button' onClick={()=>{this.handleOpenSignUpModal()}}>Đăng kí</div>
         <div className='login-button' onClick={this.handleOpenLoginModal}>Đăng nhập</div>
       </div>;
     } else {
       if (this.props.isEmployee) {
-        headerBar =<HeaderBarEmployee/>
+        headerBar = <HeaderBarEmployee />
       } else {
-        headerBar = <HeaderBarEmployee/>;
+        headerBar = <HeaderBarEmployee />;
       }
-  
+
     }
 
 
@@ -120,38 +149,17 @@ class MainPage extends Component {
           </div>
         </div>
         <MainPageBody />
-        <Modal
-          isOpen={this.state.showLoginModal}
-          contentLabel="Đăng nhập"
-          onRequestClose={this.handleCloseLoginModal}
-          className="LoginModal"
-          style={{
-
-            content: {
-              position: 'absolute',
-              left: '50%',
-              top: '50%',
-              transform: 'translate(-50%,-50%)',
-              width: '400px',
-              height: '260px',
-              border: '1px solid #ccc',
-              background: '#fff',
-              overflow: 'auto',
-              WebkitOverflowScrolling: 'touch',
-              borderRadius: '4px',
-              outline: 'none',
-
-
-            }
-          }}
+        <AntModal
+          visible={this.state.showLoginModal}
+          footer={null}
+          onCancel={()=>{this.handleCloseLoginModal()}}
+          bodyStyle={{width:"100%"}}
+          closable={false}
         >
-          <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-            <div className="commonText"> Bạn có thể </div>
-            <Image className="socialLogin" src={GGlogin} onClick={this.loginbyGoogle} />
-            <div className="commonText"> Hoặc </div>
-            <Image className="socialLogin" src={FBlogin} onClick={this.loginbyFB} />
-          </div>
-        </Modal>
+          <WrappedLogInForm/>
+        </AntModal>
+        <AntModal visible={this.state.showSignUpModal} footer={null} onCancel={()=>{this.handleCloseSignUpModal()}}>{<SignUpForm/>}</AntModal>
+
       </div>
     );
   }
@@ -163,9 +171,9 @@ function mapState2Props(state) {
 
 const mapDispatchToProps = dispatch => {
   return bindActionCreators({
-   loginGG
+    loginGG
   }, dispatch)
 
 }
 
-export default connect(mapState2Props,mapDispatchToProps)(MainPage);
+export default connect(mapState2Props, mapDispatchToProps)(MainPage);
