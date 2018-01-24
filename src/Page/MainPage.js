@@ -6,7 +6,7 @@ import GGlogin from '../Assets/GGlogin.png';
 import FBlogin from '../Assets/FBlogin.png';
 
 import { Image, InputGroup, FormControl, Button } from 'react-bootstrap';
-import { Modal as AntModal } from 'antd';
+import { Modal as AntModal,Affix } from 'antd';
 import Modal from 'react-modal'
 
 //Custom Component 
@@ -96,10 +96,10 @@ class MainPage extends Component {
 
 
     if (!this.props.isEmployee && !this.props.isEmployer) {
-      headerBar = <div className="logContainer">
+      headerBar = <Affix offsetTop={5} className="logContainer">
         <div className='register-button' onClick={()=>{this.handleOpenSignUpModal()}}>Đăng kí</div>
         <div className='login-button' onClick={this.handleOpenLoginModal}>Đăng nhập</div>
-      </div>;
+      </Affix>;
     } else {
       if (this.props.isEmployee) {
         headerBar = <HeaderBarEmployee />
@@ -108,7 +108,7 @@ class MainPage extends Component {
       }
 
     }
-
+ 
 
 
 
@@ -156,7 +156,7 @@ class MainPage extends Component {
           bodyStyle={{width:"100%"}}
           closable={false}
         >
-          <WrappedLogInForm/>
+          <WrappedLogInForm  handleCloseLoginModal={this.handleCloseLoginModal}/>
         </AntModal>
         <AntModal visible={this.state.showSignUpModal} footer={null} closable={false} onCancel={()=>{this.handleCloseSignUpModal()}}>{<WrappedSignUpForm />}</AntModal>
 

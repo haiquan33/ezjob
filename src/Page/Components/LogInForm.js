@@ -8,7 +8,7 @@ import { Image } from 'react-bootstrap';
 
 //API
 import  { loginGG,SignIn_manually } from '../../API/loginAPI';
-
+import  { get_userInfoAterLogin } from '../../API/accountAPI';
 //Redux component
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux';
@@ -27,8 +27,20 @@ class LogInForm extends Component {
             }
         });
     }
+
+    componentDidMount(){
+               
+    }
+
  
     render() {
+
+        //if logged thanh cong thì lấy user info về và đóng modal lại
+        if (this.props.isLoggedIn){
+          
+            this.props.get_userInfoAterLogin(this.props.xAuthToken);
+            this.props.handleCloseLoginModal();
+        }
         const { getFieldDecorator, getFieldsError, getFieldError, isFieldTouched } = this.props.form;
 
         return (
@@ -87,13 +99,14 @@ const WrappedLogInForm = Form.create()(LogInForm);
 
 
 function mapState2Props(state) {
-    return { isCheckingLoginInfo: state.accountReducer.isCheckingLoginInfo};
+    return { isCheckingLoginInfo: state.accountReducer.isCheckingLoginInfo, isLoggedIn:state.accountReducer.isLoggedIn, xAuthToken:state.accountReducer.xAuthToken};
   }
   
   const mapDispatchToProps = dispatch => {
     return bindActionCreators({
         loginGG,
-        SignIn_manually
+        SignIn_manually,
+        get_userInfoAterLogin
     }, dispatch)
   
   }

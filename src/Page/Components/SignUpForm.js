@@ -47,7 +47,7 @@ class SignUpForm extends Component {
         e.preventDefault();
         this.props.form.validateFieldsAndScroll((err, values) => {
             if (!err) {
-                console.log('Received values of form: ', values);
+               
                 this.props.SignUp_manually(values);
             }
         });
@@ -59,7 +59,7 @@ class SignUpForm extends Component {
     checkPassword = (rule, value, callback) => {
         const form = this.props.form;
         if (value && value !== form.getFieldValue('password')) {
-            callback('Two passwords that you enter is inconsistent!');
+            callback('Mật khẩu và Mật khẩu xác thực không trùng nhau!');
         } else {
             callback();
         }
@@ -72,7 +72,12 @@ class SignUpForm extends Component {
         callback();
     }
 
-
+    checkAgreement = (rule,value,callback)=>{
+      
+        if (!value){
+            callback('Bạn vui lòng đồng ý điều khoản sử dụng !')
+        }
+    }
 
     render() {
         const { getFieldDecorator } = this.props.form;
@@ -107,15 +112,15 @@ class SignUpForm extends Component {
                         {...formItemLayout}
                         label={(
                             <span>
-                                Nickname&nbsp;
-              <                 Tooltip title="What do you want others to call you?">
+                                Họ và tên&nbsp;
+              <                 Tooltip title="Họ tên đầy đủ của bạn là?">
                                     <Icon type="question-circle-o" />
                                 </Tooltip>
                             </span>
                         )}
                     >
                         {getFieldDecorator('name', {
-                            rules: [{ required: true, message: 'Please input your nickname!', whitespace: true }],
+                            rules: [{ required: true, message: 'Mình chưa biết họ tên của bạn', whitespace: true }],
                         })(
                             <Input />
                             )}
@@ -127,9 +132,9 @@ class SignUpForm extends Component {
                     >
                         {getFieldDecorator('email', {
                             rules: [{
-                                type: 'email', message: 'The input is not valid E-mail!',
+                                type: 'email', message: 'Định dạng Email không đúng!',
                             }, {
-                                required: true, message: 'Please input your E-mail!',
+                                required: true, message: 'Bạn chưa nhập Email nè',
                             }],
                         })(
                             <Input />
@@ -141,7 +146,7 @@ class SignUpForm extends Component {
                     >
                         {getFieldDecorator('password', {
                             rules: [{
-                                required: true, message: 'Please input your password!',
+                                required: true, message: 'Mật khẩu của bạn chưa có!',
                             }, {
                                 validator: this.checkConfirm,
                             }],
@@ -155,7 +160,7 @@ class SignUpForm extends Component {
                     >
                         {getFieldDecorator('confirm', {
                             rules: [{
-                                required: true, message: 'Please confirm your password!',
+                                required: true, message: 'Vui lòng xác thực lại mật khẩu của bạn!',
                             }, {
                                 validator: this.checkPassword,
                             }],
@@ -167,30 +172,31 @@ class SignUpForm extends Component {
 
                     <FormItem
                         {...formItemLayout}
-                        label="Ban la"
+                        label="Bạn là "
                     >
                     {getFieldDecorator('userType', {
                         initialValue: 0,
                     })(
                         <Select style={{ width: 250 }}>
-                            <Option value={0}>Normal user</Option>
-                            <Option value={1}>Employer</Option>
+                            <Option value={0}>Người tìm việc</Option>
+                            <Option value={1}>Nhà tuyển dụng</Option>
                     </Select>)}
                     </FormItem>
                     <FormItem {...tailFormItemLayout}>
                         {getFieldDecorator('isAgreed2Agreedment', {
                             valuePropName: 'isAgreed2Agreedment',
-                            rules: [{
-                                required: true, message: 'Lam on dong y dum cai',
-                            }]
+                            rules: [
+                            {
+                                validator: this.checkAgreement
+                          }]
                         })(
                             <Checkbox 
                                     onChange={this.toogleAgreed2Agreedment}
-                                >I have read the <a href="">agreement</a></Checkbox>
+                                >Tôi đã đọc và đồng ý <a href="">ĐIỀU KHOẢN SỬ DỤNG</a></Checkbox>
                             )}
                     </FormItem>
                     <FormItem {...tailFormItemLayout}>
-                        <Button type="primary" htmlType="submit">Register</Button>
+                        <Button type="primary" htmlType="submit">ĐĂNG KÍ</Button>
                     </FormItem>
                 </Form>
             </div>

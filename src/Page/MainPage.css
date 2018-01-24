@@ -80,6 +80,30 @@
     justify-items: flex-end;
 }
 
+.logContainer .ant-affix{
+    display: flex;
+    flex-direction: row;
+    position: fixed;
+    width:100%;
+    
+    align-content: flex-end;
+    align-items: flex-end;
+    justify-content: flex-end;
+    justify-items: flex-end;
+}
+
+.logContainer div{
+    display: flex;
+    flex-direction: row;
+    
+    
+    
+    align-content: flex-end;
+    align-items: center;
+    justify-content: center;
+    justify-items: center;
+}
+
 .login-button{
     display: flex;
     align-items: center;

@@ -34,8 +34,9 @@ export function SignIn_manually(userInfo) {
                 response.json()
             )
             .then((response) => {
-                console.log(response);
-                dispatch(finishCheckingLoginInfo());
+              
+                if (response.token!=null)
+                    dispatch(finishCheckingLoginInfo(response.token));
             })
             .catch((error) => {
                 console.log("error",error.json());

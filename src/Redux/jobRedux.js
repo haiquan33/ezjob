@@ -3,13 +3,15 @@ import { routerReducer } from 'react-router-redux'
 
 import {LOGIN_GG_SUCCESS,
     START_CHECKING_LOGIN_INFO,
-    FINISH_CHECKING_LOGIN_INFO} from './Actions/actions' ;
+    FINISH_CHECKING_LOGIN_INFO,
+    SET_USER_INFO_AFTER_LOGIN} from './Actions/actions' ;
 
 
 export const accountDefaultState = {
     isCheckingLoginInfo:false,
     num: 1,
     totalQuantity:0,
+    isLoggedIn:false,
     isEmployee:false,
     isEmployer:false,
     userInfo:{
@@ -122,7 +124,8 @@ export const accountReducer = (state = accountDefaultState , action) => {
         case LOGIN_GG_SUCCESS : return {...state,isEmployer:true};
         case 'LogOut': return {...state,isEmployer:false,isEmployee:false};
         case START_CHECKING_LOGIN_INFO:return{...state,isCheckingLoginInfo:true};
-        case FINISH_CHECKING_LOGIN_INFO:return{...state,isCheckingLoginInfo:false};
+        case FINISH_CHECKING_LOGIN_INFO:return{...state,isCheckingLoginInfo:false,xAuthToken:action.xAuthToken,isLoggedIn:true};
+        case SET_USER_INFO_AFTER_LOGIN:return{...state,userInfo:action.userInfo}
         default: return state;
     }
 }
