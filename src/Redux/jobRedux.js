@@ -6,7 +6,7 @@ import {LOGIN_GG_SUCCESS,
     FINISH_CHECKING_LOGIN_INFO} from './Actions/actions' ;
 
 
-export const defaultState = {
+export const accountDefaultState = {
     isCheckingLoginInfo:false,
     num: 1,
     totalQuantity:0,
@@ -15,6 +15,10 @@ export const defaultState = {
     userInfo:{
             username:"Default user",
     },
+   
+}
+
+export const jobDefaultState={
     urgentJobList:[
         {
             jobName:"Kĩ sư IT frontend",
@@ -110,7 +114,7 @@ export const defaultState = {
     ],
 }
 
-export const reducer = (state = defaultState, action) => {
+export const accountReducer = (state = accountDefaultState , action) => {
     let count_temp=0;
     switch (action.type) {
         case 'ADD': return { ...state, num: state.num + 1 };
@@ -123,9 +127,18 @@ export const reducer = (state = defaultState, action) => {
     }
 }
 
+export const jobReducer = (state = jobDefaultState , action) => {
+    let count_temp=0;
+    switch (action.type) {
+       
+        default: return state;
+    }
+}
+
 
 export const rootReducer = combineReducers({
-    reducer,
+    accountReducer,
+    jobReducer,
     router: routerReducer
 })
 

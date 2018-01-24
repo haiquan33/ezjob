@@ -38,7 +38,7 @@ export function SignIn_manually(userInfo) {
                 dispatch(finishCheckingLoginInfo());
             })
             .catch((error) => {
-                console.log(error);
+                console.log("error",error.json());
             })
     }
 }
@@ -62,7 +62,7 @@ export function SignUp_manually(userInfo) {
     //         console.log(error);
     //     })
     // console.log(userInfo);
-
+    return (dispatch) => {
     fetch(SIGNUP_MANUALLY_API, {
         method: 'post',
         headers: {
@@ -79,5 +79,6 @@ export function SignUp_manually(userInfo) {
         .catch((error) => {
             console.log(error);
         })
+    }
 }
 

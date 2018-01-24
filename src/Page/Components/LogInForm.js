@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import GGlogin from '../../Assets/GGlogin.png';
 import FBlogin from '../../Assets/FBlogin.png';
-import { Form, Icon, Input, Button, Checkbox } from 'antd';
+import { Form, Icon, Input, Button, Checkbox,Divider  } from 'antd';
 
 
 import { Image } from 'react-bootstrap';
@@ -27,7 +27,7 @@ class LogInForm extends Component {
             }
         });
     }
-
+ 
     render() {
         const { getFieldDecorator, getFieldsError, getFieldError, isFieldTouched } = this.props.form;
 
@@ -67,8 +67,8 @@ class LogInForm extends Component {
                         </div>
                     </FormItem>
                 </Form>
-
-                <div className="commonText"> Bạn có thể </div>
+                        
+                <Divider className="commonText"> Bạn có thể </Divider>
                 <div style={{ display: "flex", flexDirection: "row", width: '100%' }}>
                     <Image className="socialLogin" src={GGlogin} onClick={this.loginbyGoogle} />
                     <div className="commonText"> Hoặc </div>
@@ -87,7 +87,7 @@ const WrappedLogInForm = Form.create()(LogInForm);
 
 
 function mapState2Props(state) {
-    return { isCheckingLoginInfo: state.reducer.isCheckingLoginInfo};
+    return { isCheckingLoginInfo: state.accountReducer.isCheckingLoginInfo};
   }
   
   const mapDispatchToProps = dispatch => {

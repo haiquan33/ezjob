@@ -17,7 +17,7 @@ class NewJobList extends Component{
 }
 
 function mapState2Props(state) {
-    return { newJobList: state.reducer.newJobList};
+    return { newJobList: state.jobReducer.newJobList};
   }
   
 export default connect(mapState2Props)(newList);

@@ -12,7 +12,7 @@ import Modal from 'react-modal'
 //Custom Component 
 import MainPageBody from './Components/MainPageBody.js';
 import HeaderBarEmployee from './Components/headerBarEmployee.js'
-import SignUpForm from './Components/SignUpForm';
+import WrappedSignUpForm from './Components/SignUpForm';
 import  WrappedLogInForm from './Components/LogInForm';
 
 //API
@@ -158,7 +158,7 @@ class MainPage extends Component {
         >
           <WrappedLogInForm/>
         </AntModal>
-        <AntModal visible={this.state.showSignUpModal} footer={null} onCancel={()=>{this.handleCloseSignUpModal()}}>{<SignUpForm/>}</AntModal>
+        <AntModal visible={this.state.showSignUpModal} footer={null} closable={false} onCancel={()=>{this.handleCloseSignUpModal()}}>{<WrappedSignUpForm />}</AntModal>
 
       </div>
     );
@@ -166,7 +166,7 @@ class MainPage extends Component {
 }
 
 function mapState2Props(state) {
-  return { num: state.reducer.num, isEmployee: state.reducer.isEmployee, isEmployer: state.reducer.isEmployer };
+  return { num: state.accountReducer.num, isEmployee: state.accountReducer.isEmployee, isEmployer: state.accountReducer.isEmployer };
 }
 
 const mapDispatchToProps = dispatch => {

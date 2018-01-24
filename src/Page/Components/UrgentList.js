@@ -17,7 +17,7 @@ class UrgentList extends Component{
 }
 
 function mapState2Props(state) {
-    return { urgentJobList: state.reducer.urgentJobList};
+    return { urgentJobList: state.jobReducer.urgentJobList};
   }
   
 export default connect(mapState2Props)(UrgentList);
