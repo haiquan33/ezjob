@@ -4,11 +4,23 @@ import { routerReducer } from 'react-router-redux'
 import {LOGIN_GG_SUCCESS,
     START_CHECKING_LOGIN_INFO,
     FINISH_CHECKING_LOGIN_INFO,
-    SET_USER_INFO_AFTER_LOGIN} from './Actions/actions' ;
+    FINISH_CHECKING_LOGIN_FAILED,
+    LOGIN_STATUS_RESET,
+
+    SET_USER_INFO_AFTER_LOGIN,
+    START_CHECKING_SIGNUP_INFO,
+    SIGN_UP_SUCCESS,
+    SIGN_UP_FAILED,
+
+    SIGN_UP_STATUS_RESET,
+
+    SIGNOUT} from './Actions/actions' ;
 
 
 export const accountDefaultState = {
     isCheckingLoginInfo:false,
+    isCheckingSignUpInfo:false, 
+    isCompleteSignUpSuccessfully:false,
     num: 1,
     totalQuantity:0,
     isLoggedIn:false,
@@ -123,9 +135,22 @@ export const accountReducer = (state = accountDefaultState , action) => {
         case 'FBLogin': return {...state,isEmployee:true};
         case LOGIN_GG_SUCCESS : return {...state,isEmployer:true};
         case 'LogOut': return {...state,isEmployer:false,isEmployee:false};
+
         case START_CHECKING_LOGIN_INFO:return{...state,isCheckingLoginInfo:true};
         case FINISH_CHECKING_LOGIN_INFO:return{...state,isCheckingLoginInfo:false,xAuthToken:action.xAuthToken,isLoggedIn:true};
-        case SET_USER_INFO_AFTER_LOGIN:return{...state,userInfo:action.userInfo}
+        case FINISH_CHECKING_LOGIN_FAILED:return{...state,isCheckingLoginInfo:false,loginError:action.loginError};
+        case LOGIN_STATUS_RESET:return{...state,isCheckingLoginInfo:false,loginError:null};
+        
+        case SET_USER_INFO_AFTER_LOGIN:return{...state,userInfo:action.userInfo};
+        case START_CHECKING_SIGNUP_INFO: return {...state,isCheckingSignUpInfo:true};
+
+        case SIGN_UP_SUCCESS:return{...state,isCheckingSignUpInfo:false,xAuthToken:action.xAuthToken, isCompleteSignUpSuccessfully:true};
+        case SIGN_UP_FAILED:return{...state,isCheckingSignUpInfo:false,signupError:action.signupError};
+        case SIGN_UP_STATUS_RESET:return {...state,isCompleteSignUpSuccessfully:false,signupError:null};
+
+        case SIGNOUT: return accountDefaultState;
+        
+
         default: return state;
     }
 }

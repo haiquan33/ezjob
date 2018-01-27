@@ -53,117 +53,25 @@
   
 
 }
+
+.input-group >div>div{
+    display: flex;
+    flex-direction: row;
+}
+
 .input-group input{
    
-    height: 40px;
+    height: 35px;
 
 }
 
 .input-group .input-group-btn button{
-    background: #00EDFF;
+    background: #00AE77;
     color: white;
-      
-    font-family: SegoeUI;
-    font-size: 19px;
-}
-
-
-.logContainer{
-    display: flex;
-    flex-direction: row;
-    position: absolute;
-    top:5px;
-    width: 100%;
-    align-content: flex-end;
-    align-items: flex-end;
-    justify-content: flex-end;
-    justify-items: flex-end;
-}
-
-.logContainer .ant-affix{
-    display: flex;
-    flex-direction: row;
-    position: fixed;
-    width:100%;
-    
-    align-content: flex-end;
-    align-items: flex-end;
-    justify-content: flex-end;
-    justify-items: flex-end;
-}
-
-.logContainer div{
-    display: flex;
-    flex-direction: row;
-    
-    
-    
-    align-content: flex-end;
-    align-items: center;
-    justify-content: center;
-    justify-items: center;
-}
-
-.login-button{
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 4vw;
-    min-width: 100px;
     height: 35px;
-    min-height: 25px;
-  
-    background-color:  #00EDFF;
-    border-radius: 20px;
-
-  
-    
- 
-    border-width:0;
-    color:'white';
-   
-    color: white;
-    
     font-family: SegoeUI;
-    font-size: 17px;
-    margin-right: 10px;
-
-    transition: all ease .5s;
-    user-select: none;
-}
-
-.login-button:active{
-    
-    background: white;
-    transform: scale(0.5);
-  }
-
-
-  .register-button{
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 4vw;
-    min-width: 100px;
-    height: 35px;
-    min-height: 25px;
-  
-    background-color:  rgba(0, 238, 255, 0);
-    border-radius: 20px;
-
-  
-    
- 
-    border-width:0;
-    color:'white';
+    font-size: 15px;
    
-    color: white;
-    
-    font-family: SegoeUI;
-    font-size: 16px;
-  
-    transition: all ease .5s;
-    user-select: none;
 }
 
 
@@ -262,20 +170,6 @@
 
 }
 
-.headerBar{
-    position: fixed;
-    top:0px;
-
-    display: flex;
-    flex-direction: row;
-    align-content: center;
-    align-items: center;
-    justify-content: flex-end;
-    padding: 5px;
-    width: 100%;
-    height: 50px;
-    background: #00EDFF;
-}
 .avatar{
     width: 40px;
     height: 40px;
@@ -305,5 +199,5 @@
 
 .nav-customDropdown li a{
   font-family: SegoeUI-Bold;
-  color: #00EDFF;
+  color: #00AE77;
 }

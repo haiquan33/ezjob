@@ -7,7 +7,7 @@ import coin from '../../Assets/coin.png';
 class RecJobItem extends Component {
     render() {
         return (
-            <div style={{display:'flex',flexDirection:'column', alignContent:'center',border:'1px solid #00EDFF',padding:'5px'}}>
+            <div style={{display:'flex',flexDirection:'column', alignContent:'center',border:'1px solid #00AE77',padding:'5px'}}>
                 <div className="jobName">{this.props.Jobname}</div>
                 <div>
                     <div className="compName">{this.props.Compname}</div>
@@ -39,8 +39,8 @@ class RecJobList extends Component {
             )
         }, this);
         return (
-            <div style={{display:'flex',flexDirection:'column', alignContent:'center',border:'1px solid #00EDFF',width:'15vw'}}>
-                <div  style={{background:'#00EDFF',fontFamily: 'SegoeUI-Bold',fontSize: '20px',color: 'white',height:'40px' }} > Công việc phù hợp</div>
+            <div style={{display:'flex',flexDirection:'column', alignContent:'center',border:'1px solid #00AE77',width:'15vw'}}>
+                <div  style={{background:'#00AE77',fontFamily: 'SegoeUI-Bold',fontSize: '20px',color: 'white',height:'40px' }} > Công việc phù hợp</div>
                 {jobs}
             </div>
         )

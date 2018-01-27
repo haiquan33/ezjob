@@ -1,9 +1,22 @@
 import React, { Component } from 'react';
-import { Form, Input, Tooltip, Icon, Cascader, Select, Row, Col, Checkbox, Button, AutoComplete } from 'antd';
+import {
+    Form,
+    Input,
+    Tooltip,
+    Icon,
+    Cascader,
+    Select,
+    Row,
+    Col,
+    Checkbox,
+    Button,
+    AutoComplete,
+    Alert
+} from 'antd';
 
 
 //API
-import { SignUp_manually } from '../../API/loginAPI';
+import { SignUp_manually, SignUp_Status_Reset } from '../../API/loginAPI';
 
 //Redux component
 import { connect } from 'react-redux'
@@ -31,23 +44,25 @@ class SignUpForm extends Component {
         this.state = {
             confirmDirty: false,
             autoCompleteResult: [],
-         
+
         };
-        this.toogleAgreed2Agreedment=this.toogleAgreed2Agreedment.bind(this);
+        this.toogleAgreed2Agreedment = this.toogleAgreed2Agreedment.bind(this);
     }
 
-    toogleAgreed2Agreedment(isAgreed2Agreedment){
- 
+    toogleAgreed2Agreedment(isAgreed2Agreedment) {
+
         this.props.form.setFieldsValue({
             isAgreed2Agreedment: isAgreed2Agreedment,
         });
     }
 
     handleSubmit = (e) => {
+
         e.preventDefault();
+        this.props.SignUp_Status_Reset();
         this.props.form.validateFieldsAndScroll((err, values) => {
             if (!err) {
-               
+
                 this.props.SignUp_manually(values);
             }
         });
@@ -72,10 +87,13 @@ class SignUpForm extends Component {
         callback();
     }
 
-    checkAgreement = (rule,value,callback)=>{
-      
-        if (!value){
+    checkAgreement = (rule, value, callback) => {
+
+        if (!value) {
             callback('Bạn vui lòng đồng ý điều khoản sử dụng !')
+        }
+        else {
+            callback();
         }
     }
 
@@ -105,100 +123,118 @@ class SignUpForm extends Component {
                 },
             },
         };
-        return (
-            <div>
-                <Form onSubmit={this.handleSubmit}>
-                    <FormItem
-                        {...formItemLayout}
-                        label={(
-                            <span>
-                                Họ và tên&nbsp;
-              <                 Tooltip title="Họ tên đầy đủ của bạn là?">
-                                    <Icon type="question-circle-o" />
-                                </Tooltip>
-                            </span>
+
+        let singupForm =
+            <Form onSubmit={this.handleSubmit}>
+                <FormItem
+                    {...formItemLayout}
+                    label={(
+                        <span>
+                            Họ và tên&nbsp;
+  <                 Tooltip title="Họ tên đầy đủ của bạn là?">
+                                <Icon type="question-circle-o" />
+                            </Tooltip>
+                        </span>
+                    )}
+                >
+                    {getFieldDecorator('name', {
+                        rules: [{ required: true, message: 'Mình chưa biết họ tên của bạn', whitespace: true }],
+                    })(
+                        <Input />
                         )}
-                    >
-                        {getFieldDecorator('name', {
-                            rules: [{ required: true, message: 'Mình chưa biết họ tên của bạn', whitespace: true }],
-                        })(
-                            <Input />
-                            )}
-                    </FormItem>
+                </FormItem>
 
-                    <FormItem
-                        {...formItemLayout}
-                        label="E-mail"
-                    >
-                        {getFieldDecorator('email', {
-                            rules: [{
-                                type: 'email', message: 'Định dạng Email không đúng!',
-                            }, {
-                                required: true, message: 'Bạn chưa nhập Email nè',
-                            }],
-                        })(
-                            <Input />
-                            )}
-                    </FormItem>
-                    <FormItem
-                        {...formItemLayout}
-                        label="Password"
-                    >
-                        {getFieldDecorator('password', {
-                            rules: [{
-                                required: true, message: 'Mật khẩu của bạn chưa có!',
-                            }, {
-                                validator: this.checkConfirm,
-                            }],
-                        })(
-                            <Input type="password" />
-                            )}
-                    </FormItem>
-                    <FormItem
-                        {...formItemLayout}
-                        label="Confirm Password"
-                    >
-                        {getFieldDecorator('confirm', {
-                            rules: [{
-                                required: true, message: 'Vui lòng xác thực lại mật khẩu của bạn!',
-                            }, {
-                                validator: this.checkPassword,
-                            }],
-                        })(
-                            <Input type="password" onBlur={this.handleConfirmBlur} />
-                            )}
-                    </FormItem>
+                <FormItem
+                    {...formItemLayout}
+                    label="E-mail"
+                >
+                    {getFieldDecorator('email', {
+                        rules: [{
+                            type: 'email', message: 'Định dạng Email không đúng!',
+                        }, {
+                            required: true, message: 'Bạn chưa nhập Email nè',
+                        }],
+                    })(
+                        <Input />
+                        )}
+                </FormItem>
+                <FormItem
+                    {...formItemLayout}
+                    label="Mật khẩu"
+                >
+                    {getFieldDecorator('password', {
+                        rules: [{
+                            required: true, message: 'Mật khẩu của bạn chưa có!',
+                        }, {
+                            validator: this.checkConfirm,
+                        }],
+                    })(
+                        <Input type="password" />
+                        )}
+                </FormItem>
+                <FormItem
+                    {...formItemLayout}
+                    label="Xác nhận mật khẩu"
+                >
+                    {getFieldDecorator('confirm', {
+                        rules: [{
+                            required: true, message: 'Vui lòng xác thực lại mật khẩu của bạn!',
+                        }, {
+                            validator: this.checkPassword,
+                        }],
+                    })(
+                        <Input type="password" onBlur={this.handleConfirmBlur} />
+                        )}
+                </FormItem>
 
 
-                    <FormItem
-                        {...formItemLayout}
-                        label="Bạn là "
-                    >
+                <FormItem
+                    {...formItemLayout}
+                    label="Bạn là "
+                >
                     {getFieldDecorator('userType', {
                         initialValue: 0,
                     })(
                         <Select style={{ width: 250 }}>
                             <Option value={0}>Người tìm việc</Option>
                             <Option value={1}>Nhà tuyển dụng</Option>
-                    </Select>)}
-                    </FormItem>
-                    <FormItem {...tailFormItemLayout}>
-                        {getFieldDecorator('isAgreed2Agreedment', {
-                            valuePropName: 'isAgreed2Agreedment',
-                            rules: [
+                        </Select>)}
+                </FormItem>
+                <FormItem {...tailFormItemLayout}>
+                    {getFieldDecorator('isAgreed2Agreedment', {
+                        valuePropName: 'isAgreed2Agreedment',
+                        rules: [
                             {
                                 validator: this.checkAgreement
-                          }]
-                        })(
-                            <Checkbox 
-                                    onChange={this.toogleAgreed2Agreedment}
-                                >Tôi đã đọc và đồng ý <a href="">ĐIỀU KHOẢN SỬ DỤNG</a></Checkbox>
-                            )}
-                    </FormItem>
-                    <FormItem {...tailFormItemLayout}>
-                        <Button type="primary" htmlType="submit">ĐĂNG KÍ</Button>
-                    </FormItem>
-                </Form>
+                            }]
+                    })(
+                        <Checkbox
+                            onChange={this.toogleAgreed2Agreedment}
+                        >Tôi đã đọc và đồng ý <a href="">ĐIỀU KHOẢN SỬ DỤNG</a></Checkbox>
+                        )}
+                </FormItem>
+                <FormItem {...tailFormItemLayout}>
+                    <Button loading={this.props.isCheckingSignUpInfo} type="primary" htmlType="submit">ĐĂNG KÍ</Button>
+                </FormItem>
+            </Form>;
+
+
+        <div>
+        </div>
+
+        return (
+            <div>
+                {this.props.signupError ? <Alert message={this.props.signupError} type="error" showIcon /> : null}
+                {this.props.isCompleteSignUpSuccessfully ?
+                    <Alert
+                        message="Đăng kí thành công"
+                        description="Chúc mừng bạn đã đăng kí thành công, xin mời bạn đăng nhập để tiếp tục sử dụng dịch vụ"
+                        type="success"
+                        showIcon
+                    />
+                    : singupForm
+                }
+
             </div>
         )
     }
@@ -207,12 +243,14 @@ class SignUpForm extends Component {
 
 
 function mapState2Props(state) {
-    return { isCheckingLoginInfo: state.accountReducer.isCheckingLoginInfo };
+    return { isCheckingSignUpInfo: state.accountReducer.isCheckingSignUpInfo, signupError: state.accountReducer.signupError, isCompleteSignUpSuccessfully: state.accountReducer.isCompleteSignUpSuccessfully };
 }
 
 const mapDispatchToProps = dispatch => {
     return bindActionCreators({
-        SignUp_manually
+        SignUp_manually,
+        SignUp_Status_Reset
+
     }, dispatch)
 
 }

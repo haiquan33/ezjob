@@ -37,3 +37,9 @@
   src:url('./Assets/Fonts/segoeuib.ttf') format('opentype');
   
 }
+
+@font-face {
+  font-family: 'UTM-BryantLG_B';
+  src:url('./Assets/Fonts/UTM BryantLG_B.ttf') format('opentype');
+  
+}

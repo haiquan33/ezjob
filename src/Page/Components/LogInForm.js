@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import GGlogin from '../../Assets/GGlogin.png';
 import FBlogin from '../../Assets/FBlogin.png';
-import { Form, Icon, Input, Button, Checkbox,Divider  } from 'antd';
+import { Form, Icon, Input, Button, Checkbox,Divider,Alert  } from 'antd';
 
 
 import { Image } from 'react-bootstrap';
@@ -13,7 +13,8 @@ import  { get_userInfoAterLogin } from '../../API/accountAPI';
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux';
 
-
+//css 
+import '../CSS/LogInForm.css'
 
 const FormItem = Form.Item;
 
@@ -46,6 +47,7 @@ class LogInForm extends Component {
         return (
 
             <div className="LoginFormContainer">
+               {this.props.loginError ? <Alert message={this.props.loginError} type="error" showIcon /> : null}
                 <Form onSubmit={this.handleSubmit} className="login-form" style={{width:"80%"}} >
                     <FormItem>
                         {getFieldDecorator('email', {
@@ -72,7 +74,7 @@ class LogInForm extends Component {
                                     )}
                                 <a className="login-form-forgot" href="" style={{marginLeft:"50px"}}>Quên mật khẩu</a>
                             </div>
-                            <Button loading={this.props.isCheckingLoginInfo}  type="primary" htmlType="submit" className="login-form-button" style={{width:"80%"}}>
+                            <Button id="LoginButton" loading={this.props.isCheckingLoginInfo}  type="primary" htmlType="submit" className="login-form-button" style={{width:"80%"}}>
                                 Đăng nhập
                             </Button>
                            <a href="">Đăng kí ngay!</a>
@@ -99,7 +101,11 @@ const WrappedLogInForm = Form.create()(LogInForm);
 
 
 function mapState2Props(state) {
-    return { isCheckingLoginInfo: state.accountReducer.isCheckingLoginInfo, isLoggedIn:state.accountReducer.isLoggedIn, xAuthToken:state.accountReducer.xAuthToken};
+    return { isCheckingLoginInfo: state.accountReducer.isCheckingLoginInfo,
+         isLoggedIn:state.accountReducer.isLoggedIn,
+          xAuthToken:state.accountReducer.xAuthToken,
+          loginError:state.accountReducer.loginError
+        };
   }
   
   const mapDispatchToProps = dispatch => {

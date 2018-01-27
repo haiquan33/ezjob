@@ -1,5 +1,5 @@
 .containerName{
-    background: #00EDFF;
+    background: #00AE77;
     width: 30%;
     height: 40px;
     font-family: SegoeUI-Bold;
@@ -11,7 +11,7 @@
     flex-direction: column;
     justify-content: space-evenly;
     
-    border: 2px solid #00EDFF;
+    border: 2px solid #00AE77;
     padding: 10px;
    
 }
