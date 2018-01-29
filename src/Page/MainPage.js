@@ -9,6 +9,8 @@ import { Image, InputGroup, FormControl, Button } from 'react-bootstrap';
 import { Modal as AntModal, Affix,Icon } from 'antd';
 import Modal from 'react-modal'
 
+
+
 //Custom Component 
 import MainPageBody from './Components/MainPageBody.js';
 import HeaderbarContainer from './Components/Header/HeaderbarContainer'
@@ -128,6 +130,8 @@ class MainPage extends Component {
       </div>
     );
   }
+
+
 }
 
 function mapState2Props(state) {

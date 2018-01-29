@@ -7,8 +7,8 @@ import { Form, Icon, Input, Button, Checkbox,Divider,Alert  } from 'antd';
 import { Image } from 'react-bootstrap';
 
 //API
-import  { loginGG,SignIn_manually } from '../../API/loginAPI';
-import  { get_userInfoAterLogin } from '../../API/accountAPI';
+import  { loginGG,SignIn_manually,get_userInfoAterLogin } from '../../API/loginAPI';
+
 //Redux component
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux';
@@ -20,10 +20,17 @@ const FormItem = Form.Item;
 
 class LogInForm extends Component {
 
+    constructor(props){
+        super(props);
+        this.state={remember:true};
+    }
+
     handleSubmit = (e) => {
         e.preventDefault();
         this.props.form.validateFields((err, values) => {
             if (!err) {
+
+                this.setState({remember:values.remember});
                 this.props.SignIn_manually(values);
             }
         });
@@ -36,9 +43,12 @@ class LogInForm extends Component {
  
     render() {
 
-        //if logged thanh cong thì lấy user info về và đóng modal lại
+        //if logged thanh cong thì lấy user info về và đóng modal lại , nếu remember user thì remember nó luôn
         if (this.props.isLoggedIn){
-          
+            
+            if (this.state.remember)
+            this.props.RememberThisUser(this.props.xAuthToken);
+
             this.props.get_userInfoAterLogin(this.props.xAuthToken);
             this.props.handleCloseLoginModal();
         }
@@ -104,7 +114,8 @@ function mapState2Props(state) {
     return { isCheckingLoginInfo: state.accountReducer.isCheckingLoginInfo,
          isLoggedIn:state.accountReducer.isLoggedIn,
           xAuthToken:state.accountReducer.xAuthToken,
-          loginError:state.accountReducer.loginError
+          loginError:state.accountReducer.loginError,
+          isUserInfoGot:state.accountReducer.isHasGotUserInfo
         };
   }
   

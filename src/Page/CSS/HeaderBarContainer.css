@@ -65,6 +65,51 @@
     left: 10px;
 }
 
+
+.headerBarEmployee div{
+    display: flex;
+    flex-direction: row;
+    
+    
+    
+    align-content: flex-end;
+    align-items: center;
+    justify-content: center;
+    justify-items: center;
+}
+
+.headerBarEmployee h1{
+    font-family: "UTM-BryantLG_B";
+    color:white;
+    margin:0px;
+    font-size: 27px;
+    position: absolute;
+    left: 10px;
+}
+
+
+.headerBarEmployer div{
+    display: flex;
+    flex-direction: row;
+    
+    
+    
+    align-content: flex-end;
+    align-items: center;
+    justify-content: center;
+    justify-items: center;
+}
+
+
+.headerBarEmployer h1{
+    font-family: "UTM-BryantLG_B";
+    color:white;
+    margin:0px;
+    font-size: 27px;
+    position: absolute;
+    left: 10px;
+}
+
 .login-button{
     display: flex;
     align-items: center;
@@ -127,7 +172,12 @@
     user-select: none;
 }
 
-.headerBarEmployee>span.ant-avatar.ant-dropdown-trigger.ant-avatar-lg{
+.headerBarEmployee>div>span.ant-avatar.ant-dropdown-trigger.ant-avatar-lg{
+    padding: 2px;
+    background: white;
+}
+
+.headerBarEmployer>div>span.ant-avatar.ant-dropdown-trigger.ant-avatar-lg{
     padding: 2px;
     background: white;
 }

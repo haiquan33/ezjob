@@ -7,6 +7,8 @@ import {
     finishCheckingLoginInfo,
     finishCheckingLoginInfo_failed,
     resetLoginStatus,
+    setUserInfoAfterLogin,
+    rememberLogin,
 
     startCheckingSignUpInfo,
     successSignUp,
@@ -20,6 +22,9 @@ const SERVER_URL = "http://ezjob-node-server.herokuapp.com";
 
 const SIGNUP_MANUALLY_API = SERVER_URL + "/api/user/signUp";
 const SIGNIN_MANUALLY_API = SERVER_URL + "/api/user/signIn";
+const GET_USERINFO_AFTER_LOGIN_API = SERVER_URL + "/api/user/info";
+
+
 const USER_SIGNOUT = SERVER_URL + "/api/user/signOut";
 
 export function loginGG() {
@@ -58,6 +63,46 @@ export function SignIn_manually(userInfo) {
             })
     }
 }
+
+
+
+
+
+
+
+//sau khi đăng nhập thì lấy user info chung về
+export function get_userInfoAterLogin(xAuthToken) {
+
+    return (dispatch) => {
+
+      
+
+        fetch(GET_USERINFO_AFTER_LOGIN_API, {
+            method: 'get',
+            headers: {
+                'Content-Type': 'application/json',
+                'x-auth-token': xAuthToken
+            },
+           
+        })
+            .then((response) =>
+                response.json()
+            )
+            .then((response) => {
+                if (response.data!=null)
+                dispatch(setUserInfoAfterLogin(response.data,xAuthToken));
+
+            })
+            .catch((error) => {
+                console.log("error",error);
+            })
+    }
+}
+
+
+
+
+
 
 
 // reset lại login error

@@ -15,7 +15,7 @@ import { push } from 'react-router-redux'
   
 
 
-class HeaderBarEmployee extends Component {
+class HeaderBarEmployer extends Component {
 
     constructor(props) {
         super(props);
@@ -26,7 +26,6 @@ class HeaderBarEmployee extends Component {
     }
 
     render() {
-    
         let avatar=this.props.userInfo.pictureURL?  this.props.userInfo.pictureURL:default_avatar;
        let menu = (
             <Menu>
@@ -34,7 +33,7 @@ class HeaderBarEmployee extends Component {
                 <a >Thông tin tài khoản</a>
               </Menu.Item>
               <Menu.Item key="1">
-                <a >CV của tôi</a>
+                <a >Bảng quản trị</a>
               </Menu.Item>
               <Menu.Divider />
               <Menu.Item key="3"> <a  onClick={this.SignOut} >Đăng thoát</a></Menu.Item>
@@ -42,7 +41,7 @@ class HeaderBarEmployee extends Component {
           );
 
         return (
-            <Affix offsetTop={0}className="headerBarEmployee">
+            <Affix offsetTop={0} className="headerBarEmployer">
                 <h1>EzJob</h1>
                 <Dropdown overlay={menu} trigger={['click']}>
                          <Avatar size="large" src={avatar} />
@@ -53,4 +52,4 @@ class HeaderBarEmployee extends Component {
 }
 
 
-export default connect()(HeaderBarEmployee);
+export default connect()(HeaderBarEmployer);

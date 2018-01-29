@@ -2,6 +2,7 @@ export const LOGIN_GG_SUCCESS="LOGIN_GG_SUCCESS"
 export const START_CHECKING_LOGIN_INFO="START_CHECKING_LOGIN_INFO";
 export const FINISH_CHECKING_LOGIN_INFO="FINISH_CHECKING_LOGIN_INFO";
 export const FINISH_CHECKING_LOGIN_FAILED="FINISH_CHECKING_LOGIN_INFO_FAILED";
+export const  LOGIN_REMEMBER="LOGIN_REMEMBER";
 export const LOGIN_STATUS_RESET="LOGIN_STATUS_RESET";
 
 
@@ -14,6 +15,11 @@ export const SIGN_UP_STATUS_RESET="SIGN_UP_STATUS_RESET";
 export const SIGNOUT="SIGNOUT";
 
 export const SET_USER_INFO_AFTER_LOGIN="SET_USER_INFO_AFTER_LOGIN";
+
+
+
+
+
 
 
 ////////////// LOGIN SIGNUP action //////////////////////
@@ -44,6 +50,9 @@ export function finishCheckingLoginInfo_failed(loginError) {
     };
 } 
 
+
+
+
 // xóa hết các Status của việc login(error,..), KHÔNG PHẢI LÀ log out
 export function resetLoginStatus(){
     return {
@@ -51,6 +60,9 @@ export function resetLoginStatus(){
         
     };
 }
+
+
+
 
 //SIGNUP
 
@@ -107,9 +119,16 @@ export function loginGGsuccess(userInfo) {
 
 /////////////// Account Action///////////////
 
-export function setUserInfoAfterLogin(userInfo) {
+export function setUserInfoAfterLogin(userInfo,xAuthToken) {
     return {
         type: SET_USER_INFO_AFTER_LOGIN,
-        userInfo
+        userInfo,
+        xAuthToken
     };
 } 
+
+
+
+
+///////other action///////
+
