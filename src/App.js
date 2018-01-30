@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
-import MainPage from './Page/MainPage.js';
+import MainPage from './Page/MainPage/MainPage.js';
+import DashboardContainer from './Page/Dashboard/DashboardContainer';
 import UserCV from './Page/UserCV.js';
-
+import Loader from './Page/Components/Loader/Loader'
 
 
 //Other lib
@@ -11,8 +12,10 @@ import { withCookies, Cookies } from 'react-cookie';
 import { instanceOf } from 'prop-types';
 
 
-import { Route } from 'react-router'
 
+
+
+import { withRouter,Route } from 'react-router-dom'
 
 //Redux component
 import { connect } from 'react-redux'
@@ -20,7 +23,9 @@ import { bindActionCreators } from 'redux';
 
 
 //API
-import { get_userInfoAterLogin } from './API/loginAPI';
+import { get_userInfoAterLogin } from './Services/API/loginAPI';
+
+
 
 
 
@@ -32,27 +37,30 @@ class App extends Component {
 
   constructor(props) {
     super(props);
-    
+
   }
 
   componentWillMount() {
-  //  get user cookie
+    //  get user cookie
     const { cookies } = this.props;
     let xAuthToken = cookies.get('xAuthToken') || null;
-    console.log("get cookie",xAuthToken);
-    if (xAuthToken!=null) this.props.get_userInfoAterLogin(xAuthToken);
+    console.log("get cookie", xAuthToken);
+    if (xAuthToken != null) this.props.get_userInfoAterLogin(xAuthToken);
 
   }
-  
+
 
   render() {
-    
+
     return (
       <div className="App">
 
+        <Loader Loading={this.props.isGettingUserInfo}/>
 
         <Route exact path="/" component={MainPage} />
-        <Route exact path="/home" component={MainPage} />
+        <Route  path="/dashboard" component={DashboardContainer} />
+        
+      
         <Route exact path="/userCV" component={UserCV} />
 
 
@@ -65,7 +73,8 @@ function mapState2Props(state) {
   return {
     userInfo: state.accountReducer.userInfo,
     isLoggedIn: state.accountReducer.isLoggedIn,
-    xAuthToken:state.accountReducer.xAuthToken
+    xAuthToken: state.accountReducer.xAuthToken,
+    isGettingUserInfo:state.accountReducer.isGettingUserInfo
   };
 }
 
@@ -77,4 +86,4 @@ const mapDispatchToProps = dispatch => {
 
 }
 
-export default connect(mapState2Props, mapDispatchToProps)(withCookies(App));
+export default withRouter(connect(mapState2Props, mapDispatchToProps)(withCookies(App)));

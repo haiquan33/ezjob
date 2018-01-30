@@ -33,7 +33,7 @@ class HeaderBarEmployer extends Component {
                 <a >Thông tin tài khoản</a>
               </Menu.Item>
               <Menu.Item key="1">
-                <a >Bảng quản trị</a>
+                <a onClick={()=>this.props.NavigateTo("dashboard")}>Bảng quản trị</a>
               </Menu.Item>
               <Menu.Divider />
               <Menu.Item key="3"> <a  onClick={this.SignOut} >Đăng thoát</a></Menu.Item>

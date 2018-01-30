@@ -16,7 +16,7 @@ import {
 
 
 //API
-import { SignUp_manually, SignUp_Status_Reset } from '../../API/loginAPI';
+import { SignUp_manually, SignUp_Status_Reset } from '../../Services/API/loginAPI';
 
 //Redux component
 import { connect } from 'react-redux'

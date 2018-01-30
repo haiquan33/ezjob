@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
-import background from '../Assets/bg-main.jpg';
-import logo from '../Assets/logo.png';
-import down from '../Assets/down.png';
-import GGlogin from '../Assets/GGlogin.png';
-import FBlogin from '../Assets/FBlogin.png';
+import background from '../../Assets/bg-main.jpg';
+import logo from '../../Assets/logo.png';
+import down from '../../Assets/down.png';
+import GGlogin from '../../Assets/GGlogin.png';
+import FBlogin from '../../Assets/FBlogin.png';
 
 import { Image, InputGroup, FormControl, Button } from 'react-bootstrap';
 import { Modal as AntModal, Affix,Icon } from 'antd';
@@ -12,13 +12,13 @@ import Modal from 'react-modal'
 
 
 //Custom Component 
-import MainPageBody from './Components/MainPageBody.js';
-import HeaderbarContainer from './Components/Header/HeaderbarContainer'
-
+import MainPageBody from '../Components/MainPageBody.js';
+import HeaderbarContainer from '../Components/Header/HeaderbarContainer'
+import Loader from '../Components/Loader/Loader';
 
 //API
 import { loginGG,
-     } from '../API/loginAPI';
+     } from '../../Services/API/loginAPI';
 
 
 //Redux component
@@ -86,7 +86,8 @@ class MainPage extends Component {
 
     return (
       <div className="MainPage">
-      
+
+        
         <div className="Background" style={{
           backgroundImage: "url(" + background + ")",
           backgroundSize: 'cover',
@@ -127,6 +128,7 @@ class MainPage extends Component {
         </div>
         <MainPageBody />
         <HeaderbarContainer/>
+       
       </div>
     );
   }
@@ -135,7 +137,10 @@ class MainPage extends Component {
 }
 
 function mapState2Props(state) {
-  return { num: state.accountReducer.num, isEmployee: state.accountReducer.isEmployee, isEmployer: state.accountReducer.isEmployer };
+  return { num: state.accountReducer.num,
+     isEmployee: state.accountReducer.isEmployee, 
+     isEmployer: state.accountReducer.isEmployer,
+     isGettingUserInfo:state.accountReducer.isGettingUserInfo};
 }
 
 const mapDispatchToProps = dispatch => {

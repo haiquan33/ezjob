@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import UrgentList from './UrgentList.js';
-import NewJobList from './UrgentList.js';
-import RecJobList from './RecJobList.js';
+import UrgentList from './JobList/UrgenJobList/UrgentList';
+import NewJobList from './JobList/NewJobList/NewJobList';
+import RecJobList from './JobList/RecJobList/RecJobList';
 export default class MainPageBody extends Component {
     render() {
         return (

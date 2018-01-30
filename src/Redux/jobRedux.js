@@ -7,7 +7,7 @@ import {LOGIN_GG_SUCCESS,
     FINISH_CHECKING_LOGIN_FAILED,
     LOGIN_REMEMBER,
     LOGIN_STATUS_RESET,
-
+    START_GETTING_USER_INFO_AFTER_LOGIN,
     SET_USER_INFO_AFTER_LOGIN,
     START_CHECKING_SIGNUP_INFO,
     SIGN_UP_SUCCESS,
@@ -22,7 +22,8 @@ export const accountDefaultState = {
     isCheckingLoginInfo:false,
     isCheckingSignUpInfo:false, 
     isCompleteSignUpSuccessfully:false,
-    isHasGotUserInfo:false,
+
+    isGettingUserInfo:false,
     num: 1,
     totalQuantity:0,
     isLoggedIn:false,
@@ -143,8 +144,9 @@ export const accountReducer = (state = accountDefaultState , action) => {
         case FINISH_CHECKING_LOGIN_FAILED:return{...state,isCheckingLoginInfo:false,loginError:action.loginError};
   
         case LOGIN_STATUS_RESET:return{...state,isCheckingLoginInfo:false,loginError:null};
-        
-        case SET_USER_INFO_AFTER_LOGIN:return{...state,userInfo:action.userInfo,isHasGotUserInfo:true,isLoggedIn:true,xAuthToken:action.xAuthToken};
+
+        case START_GETTING_USER_INFO_AFTER_LOGIN: return{...state,isGettingUserInfo:true};
+        case SET_USER_INFO_AFTER_LOGIN:return{...state,userInfo:action.userInfo,isLoggedIn:true,xAuthToken:action.xAuthToken,isGettingUserInfo:false};
         case START_CHECKING_SIGNUP_INFO: return {...state,isCheckingSignUpInfo:true};
 
         case SIGN_UP_SUCCESS:return{...state,isCheckingSignUpInfo:false,xAuthToken:action.xAuthToken, isCompleteSignUpSuccessfully:true};

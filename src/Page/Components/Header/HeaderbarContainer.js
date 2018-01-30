@@ -7,7 +7,6 @@ import '../../CSS/HeaderBarContainer.css';
 import { withCookies, Cookies } from 'react-cookie';
 import { instanceOf } from 'prop-types';
 
-
 //custome component
 import WrappedSignUpForm from '../SignUpForm';
 import WrappedLogInForm from '../LogInForm';
@@ -22,11 +21,12 @@ import {
     SignUp_Status_Reset,
     Login_Status_Reset,
     SignOut
-} from '../../../API/loginAPI';
+} from '../../../Services/API/loginAPI';
 
 //Redux component
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux';
+import { push } from 'react-router-redux'
 
 
 const EmployeeType = 0;
@@ -48,6 +48,7 @@ class HeaderbarContainer extends Component {
         this.handleCloseSignUpModal = this.handleCloseSignUpModal.bind(this);
         this.handleOpenSignUpModal = this.handleOpenSignUpModal.bind(this);
         this.RememberThisUser=this.RememberThisUser.bind(this);
+        this.NavigateTo=this.NavigateTo.bind(this);
         this.SignOut = this.SignOut.bind(this);
         this.state = { showLoginModal: false, showSignUpModal: false };
 
@@ -101,13 +102,18 @@ class HeaderbarContainer extends Component {
     }
 
 
+    // route to this path
+    NavigateTo(path){
+            this.props.push('/'+path);
+    }
+
     render() {
         return (
             <div className="HeaderbarContainer">
                 {this.props.isLoggedIn ?
                     this.props.userInfo.userType == EmployeeType ?
-                        <HeaderBarEmployee SignOut={this.SignOut} userInfo={this.props.userInfo} /> :
-                        <HeaderBarEmployer SignOut={this.SignOut} userInfo={this.props.userInfo} /> :
+                        <HeaderBarEmployee NavigateTo={this.NavigateTo} SignOut={this.SignOut} userInfo={this.props.userInfo} /> :
+                        <HeaderBarEmployer NavigateTo={this.NavigateTo} SignOut={this.SignOut} userInfo={this.props.userInfo} /> :
                     <HeaderbarDefault handleOpenSignUpModal={this.handleOpenSignUpModal} handleOpenLoginModal={this.handleOpenLoginModal} />
 
                 }
@@ -117,11 +123,11 @@ class HeaderbarContainer extends Component {
                     onCancel={() => { this.handleCloseLoginModal() }}
                     bodyStyle={{ width: "100%" }}
                     closable={false}
-                    afterClose={this.afterLoginModalClose()}
+                    afterClose={()=>this.afterLoginModalClose()}
                 >
                     <WrappedLogInForm RememberThisUser={this.RememberThisUser} handleCloseLoginModal={this.handleCloseLoginModal} />
                 </AntModal>
-                <AntModal afterClose={this.props.SignUp_Status_Reset()}
+                <AntModal afterClose={()=>this.props.SignUp_Status_Reset()}
                     visible={this.state.showSignUpModal}
                     footer={null} closable={false}
                     onCancel={() => { this.handleCloseSignUpModal() }}>{<WrappedSignUpForm />}</AntModal>
@@ -147,7 +153,7 @@ const mapDispatchToProps = dispatch => {
         SignUp_Status_Reset,
         Login_Status_Reset,
         SignOut,
-      
+        push
     }, dispatch)
 
 }

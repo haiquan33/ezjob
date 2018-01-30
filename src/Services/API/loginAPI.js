@@ -7,6 +7,7 @@ import {
     finishCheckingLoginInfo,
     finishCheckingLoginInfo_failed,
     resetLoginStatus,
+    startGettingUserInfoAfterLogin,
     setUserInfoAfterLogin,
     rememberLogin,
 
@@ -16,7 +17,7 @@ import {
     resetSignUpStatus,
 
     signout
-} from '../Redux/Actions/actions';
+} from '../../Redux/Actions/actions';
 
 const SERVER_URL = "http://ezjob-node-server.herokuapp.com";
 
@@ -75,7 +76,7 @@ export function get_userInfoAterLogin(xAuthToken) {
 
     return (dispatch) => {
 
-      
+        dispatch(startGettingUserInfoAfterLogin());
 
         fetch(GET_USERINFO_AFTER_LOGIN_API, {
             method: 'get',
@@ -83,18 +84,20 @@ export function get_userInfoAterLogin(xAuthToken) {
                 'Content-Type': 'application/json',
                 'x-auth-token': xAuthToken
             },
-           
+
         })
             .then((response) =>
                 response.json()
             )
             .then((response) => {
-                if (response.data!=null)
-                dispatch(setUserInfoAfterLogin(response.data,xAuthToken));
+                if (response.data != null) {
+                    console.log(response)
+                    dispatch(setUserInfoAfterLogin(response.data, xAuthToken));
+                }
 
             })
             .catch((error) => {
-                console.log("error",error);
+                console.log("error", error);
             })
     }
 }
@@ -157,11 +160,14 @@ export function SignUp_manually(userInfo) {
                 response.json()
             )
             .then((response) => {
+
                 //if sign up success => data tra về khác null
                 if (response.data != null) {
+                    console.log(response);
                     dispatch(successSignUp(response.token));
                 }
                 else {
+
                     dispatch(failedSignUp(response.message))
                 }
 
@@ -177,6 +183,7 @@ export function SignUp_manually(userInfo) {
 export function SignUp_Status_Reset() {
 
     return (dispatch) => {
+        console.log("reset signup");
         dispatch(resetSignUpStatus())
 
     }

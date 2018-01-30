@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import JobItem from './JobItem.js';
+import JobItem from './JobItem/JobItem';
 import './JobContainer.css';
 export default class JobContainer extends Component{
 

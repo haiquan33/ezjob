@@ -2,8 +2,8 @@
 
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import checked from '../../Assets/checked.png';
-import coin from '../../Assets/coin.png';
+import checked from '../../../../Assets/checked.png';
+import coin from '../../../../Assets/coin.png';
 class RecJobItem extends Component {
     render() {
         return (

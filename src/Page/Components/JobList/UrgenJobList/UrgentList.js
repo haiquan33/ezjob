@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import JobItem from './JobItem.js';
-import JobContainer from './JobContainer.js';
+
+import JobContainer from '../JobListContainer/JobContainer';
 import { connect } from 'react-redux';
 
 

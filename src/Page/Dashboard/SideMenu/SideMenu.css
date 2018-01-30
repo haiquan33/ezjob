@@ -1,0 +1,83 @@
+
+:root {
+    --primary-color: #00AE77;
+    
+  }
+
+
+.ant-menu.ant-menu-light.ant-menu-root.ant-menu-inline{
+    height: 82vh;
+}
+
+/* Menu thả xuống*/
+.ant-menu-submenu.ant-menu-submenu-inline>.ant-menu-submenu-title{
+   display: flex;
+   align-items: flex-end;
+    height: 60px;
+}
+
+/* Tiêu đề Menu cha*/
+.ant-menu-submenu.ant-menu-submenu-inline>.ant-menu-submenu-title>span>span{
+    font-family: "UTM-BryantLG_B";
+    font-size: 18px;
+    color: var(--primary-color)
+ }
+
+
+  /* Menu con*/
+ .ant-menu-submenu.ant-menu-submenu-inline.ant-menu-submenu-open>.ant-menu.ant-menu-sub.ant-menu-inline>.ant-menu-item{
+   
+    text-align: left;
+  
+ }
+
+   /* Menu con selected */
+ .ant-menu-submenu.ant-menu-submenu-inline.ant-menu-submenu-open>.ant-menu.ant-menu-sub.ant-menu-inline>.ant-menu-item.ant-menu-item-selected{
+   
+    background-color: rgba(0, 250, 171, 0.521);
+    color: var(--primary-color);
+  
+ }
+
+
+
+ /* Tiêu đề Menu con*/
+ .ant-menu-submenu.ant-menu-submenu-inline.ant-menu-submenu-open>.ant-menu.ant-menu-sub.ant-menu-inline>.ant-menu-item>span>a{
+    font-family: "UTM-BryantLG_B";
+    font-size: 15px;
+    color: var(--primary-color);
+  
+  
+ }
+
+ 
+/* Menu ko phải là Menu thả xuống*/
+.ant-menu.ant-menu-light.ant-menu-root.ant-menu-inline>.ant-menu-item{
+        padding-top:10px;
+       padding-left: 20px;
+       text-align: left;
+    
+       height: 60px;
+   }
+
+
+
+/*Menu selected*/
+.ant-menu.ant-menu-light.ant-menu-root.ant-menu-inline>.ant-menu-item.ant-menu-item-selected{
+
+        background-color: rgba(0, 250, 171, 0.521);
+        color: var(--primary-color);
+     
+       
+   }
+
+
+
+
+/* Tiêu đề  Menu ko phải là Menu thả xuống*/
+.ant-menu.ant-menu-light.ant-menu-root.ant-menu-inline>.ant-menu-item>span>a{
+    font-family: "UTM-BryantLG_B";
+    font-size: 18px;
+    color: var(--primary-color)
+}
+

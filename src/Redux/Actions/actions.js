@@ -14,6 +14,8 @@ export const SIGN_UP_STATUS_RESET="SIGN_UP_STATUS_RESET";
 
 export const SIGNOUT="SIGNOUT";
 
+
+export const START_GETTING_USER_INFO_AFTER_LOGIN="START_GETTING_USER_INFO_AFTER_LOGIN";
 export const SET_USER_INFO_AFTER_LOGIN="SET_USER_INFO_AFTER_LOGIN";
 
 
@@ -114,11 +116,21 @@ export function loginGGsuccess(userInfo) {
     };
 } 
 
-
+    
 
 
 /////////////// Account Action///////////////
 
+
+//announce to tart getting user info
+export function startGettingUserInfoAfterLogin() {
+    return {
+        type: START_GETTING_USER_INFO_AFTER_LOGIN
+      
+    };
+} 
+
+// if success then set userinfo to store
 export function setUserInfoAfterLogin(userInfo,xAuthToken) {
     return {
         type: SET_USER_INFO_AFTER_LOGIN,

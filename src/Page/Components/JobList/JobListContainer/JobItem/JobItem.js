@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
-import checked from '../../Assets/checked.png';
-import like from '../../Assets/like.png';
-import likechecked from '../../Assets/likechecked.png';
-import clock from '../../Assets/clock.png';
-import coin from '../../Assets/coin.png';
+import checked from '../../../../../Assets/checked.png';
+import like from '../../../../../Assets/like.png';
+import likechecked from '../../../../../Assets/likechecked.png';
+import clock from '../../../../../Assets/clock.png';
+import coin from '../../../../../Assets/coin.png';
 import './JobItem.css';
 export default class JobItem extends Component {
     constructor(props){

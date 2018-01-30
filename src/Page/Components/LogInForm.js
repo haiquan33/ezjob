@@ -7,7 +7,7 @@ import { Form, Icon, Input, Button, Checkbox,Divider,Alert  } from 'antd';
 import { Image } from 'react-bootstrap';
 
 //API
-import  { loginGG,SignIn_manually,get_userInfoAterLogin } from '../../API/loginAPI';
+import  { loginGG,SignIn_manually,get_userInfoAterLogin } from '../../Services/API/loginAPI';
 
 //Redux component
 import { connect } from 'react-redux'
