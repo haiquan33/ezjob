@@ -6,6 +6,7 @@
 .SideMenuLogoContainer{
     margin-top:20px;
     margin-bottom:30px;
+  
 }
 
 .SideMenuLogo{
@@ -28,7 +29,10 @@
 .ant-layout.ant-layout-has-sider>.ant-layout-sider{
     background: var(--primary-color);
 }
-
+/*Header*/
+.ant-layout.ant-layout-has-sider>.ant-layout>.ant-layout-header{
+    padding: 0px;
+}
 
 /*Header*/
 .ant-layout.ant-layout-has-sider>.ant-layout>.ant-layout-header{

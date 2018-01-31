@@ -5,7 +5,7 @@ import MainPage from './Page/MainPage/MainPage.js';
 import DashboardContainer from './Page/Dashboard/DashboardContainer';
 import UserCV from './Page/UserCV.js';
 import Loader from './Page/Components/Loader/Loader'
-
+import Page404 from './Page/Page404/Page404';
 
 //Other lib
 import { withCookies, Cookies } from 'react-cookie';
@@ -15,7 +15,7 @@ import { instanceOf } from 'prop-types';
 
 
 
-import { withRouter,Route } from 'react-router-dom'
+import { withRouter, Route,Switch,Redirect } from 'react-router-dom'
 
 //Redux component
 import { connect } from 'react-redux'
@@ -55,14 +55,14 @@ class App extends Component {
     return (
       <div className="App">
 
-        <Loader Loading={this.props.isGettingUserInfo}/>
-
-        <Route exact path="/" component={MainPage} />
-        <Route  path="/dashboard" component={DashboardContainer} />
-        
-      
-        <Route exact path="/userCV" component={UserCV} />
-
+        <Loader Loading={this.props.isGettingUserInfo} />
+        <Switch>
+          <Route exact path="/" component={MainPage} />
+          <Route path="/dashboard" component={DashboardContainer} />
+          <Route exact path="/userCV" component={UserCV} />
+          <Route exact path='/404' component={Page404}/>
+          <Redirect to="/404" />
+        </Switch>
 
       </div>
     );
@@ -74,7 +74,7 @@ function mapState2Props(state) {
     userInfo: state.accountReducer.userInfo,
     isLoggedIn: state.accountReducer.isLoggedIn,
     xAuthToken: state.accountReducer.xAuthToken,
-    isGettingUserInfo:state.accountReducer.isGettingUserInfo
+    isGettingUserInfo: state.accountReducer.isGettingUserInfo
   };
 }
 
