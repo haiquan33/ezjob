@@ -16,7 +16,7 @@ import { instanceOf } from 'prop-types';
 
 
 import { withRouter, Route,Switch,Redirect } from 'react-router-dom'
-
+import {AuthorizedRoute} from './Routes/AuthorizedRoute';
 //Redux component
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux';

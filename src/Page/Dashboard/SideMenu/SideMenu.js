@@ -17,7 +17,7 @@ export default class SideMenu extends Component {
         console.log(this.props)
         return (
             <Menu mode="inline" defaultSelectedKeys={['postedJob']} >
-                <SubMenu  key="postedJob" title={<Link to={`${this.props.match.url}/cv`}><Icon type="form" /><span className="nav-text">Các công việc đã đăng</span></Link>}>
+                <SubMenu  key="postedJob" title={<Link to={`${this.props.match.url}/postedjobs/all`}><Icon type="form" /><span className="nav-text">Các công việc đã đăng</span></Link>}>
                     <Menu.Item key="recruitingJob" >
                         <span className="nav-text"><Link to={`${this.props.match.url}/cv`}>Công việc đang tuyển</Link></span>
                     </Menu.Item>

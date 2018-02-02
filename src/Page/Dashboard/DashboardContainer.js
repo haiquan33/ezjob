@@ -17,6 +17,8 @@ import { push } from 'react-router-redux'
 //Custom Component
 import SideMenu from './SideMenu/SideMenu';
 import MyHeader from './Header/MyHeader';
+import JobListContainer from './Content/Job/JobListContainer';
+
 
 //Assets
 import logo_only from '../../Assets/logo_only.png'
@@ -51,18 +53,18 @@ class DashboardContainer extends Component {
                         <img alt="logo" src={logo_only} className="SideMenuLogo"/>
                         {this.state.siderCollapsed? '' : <span>EJobs</span>}
                     </div>
-                    <SideMenu currentUrl={this.props.match.path} navigateTo={this.navigateTo} {...this.props} className="SideMenu" />
+                    <SideMenu navigateTo={this.navigateTo} {...this.props} className="SideMenu" />
                 </Sider>
                 <Layout >
                     <Header ><MyHeader siderCollapsed={this.state.siderCollapsed} toggleSiderCollapsed={this.toggleSiderCollapsed} /></Header>
                     <Content> 
                         <Switch>
-                            <Route exact path={`${this.props.match.url}/cv`} component={UserCV} />
-                            <Route exact path={`${this.props.match.url}/postedjobs`} component={UserCV} />
+                            <Route exact path={`${this.props.match.url}/cv`} component={UserCV}  />
+                            <Route exact path={`${this.props.match.url}/postedjobs/:postedType`} component={JobListContainer} />
                         </Switch>
                     </Content>
                     <Footer>Footer</Footer>
-                   
+
                 </Layout>
             </Layout>
 

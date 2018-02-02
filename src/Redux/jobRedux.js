@@ -1,6 +1,9 @@
 import { createStore,combineReducers } from 'redux';
 import { routerReducer } from 'react-router-redux'
 
+
+
+//ACtions Import
 import {LOGIN_GG_SUCCESS,
     START_CHECKING_LOGIN_INFO,
     FINISH_CHECKING_LOGIN_INFO,
@@ -16,6 +19,10 @@ import {LOGIN_GG_SUCCESS,
     SIGN_UP_STATUS_RESET,
 
     SIGNOUT} from './Actions/actions' ;
+
+import {SET_RESULT_JOBs_LIST,
+        START_REQUESTING_JOB_LIST} from'./Actions/jobActions';
+
 
 
 export const accountDefaultState = {
@@ -36,6 +43,8 @@ export const accountDefaultState = {
 }
 
 export const jobDefaultState={
+    isRequestingJobList:false,
+    resultJobList:null,
     urgentJobList:[
         {
             jobName:"Kĩ sư IT frontend",
@@ -163,7 +172,8 @@ export const accountReducer = (state = accountDefaultState , action) => {
 export const jobReducer = (state = jobDefaultState , action) => {
     let count_temp=0;
     switch (action.type) {
-       
+        case START_REQUESTING_JOB_LIST: return {...state,isRequestingJobList:true};
+        case SET_RESULT_JOBs_LIST:return{...state,resultJobList:action.resultJobList, isRequestingJobList:false}
         default: return state;
     }
 }
