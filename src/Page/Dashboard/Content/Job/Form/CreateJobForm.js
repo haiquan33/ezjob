@@ -1,8 +1,11 @@
 import React, { Component } from 'react';
 
-import { Form, Icon, Input, Button, Checkbox, Divider, Alert, Tooltip, Select, TimePicker } from 'antd';
+import { Form, Icon, Input, Button, Checkbox, Divider, Alert, Tooltip, Select, TimePicker, Row, Col } from 'antd';
 
 
+//other libs
+import TagsInput from 'react-tagsinput';
+import moment from 'moment';
 import { Image } from 'react-bootstrap';
 
 
@@ -12,7 +15,7 @@ import NumericInput from '../../../../Components/Utils/InputNumber/NumericInput'
 
 //css 
 import './CreateJobForm.css'
-
+import 'react-tagsinput/react-tagsinput.css'
 
 const FormItem = Form.Item;
 const Option = Select.Option;
@@ -28,7 +31,7 @@ const TextArea = Input.TextArea;
 var shortid = require('shortid');
 
 //prefix to add to Fielđecorator
-let prefixtimetable_day = "timetable-start-";
+let prefixtimetable_day = "timetable-day-";
 let prefixTimetable_start = "timetable-start-";
 let prefixTimetable_end = "timetable-end-";
 
@@ -42,9 +45,17 @@ class CreateJobForm extends Component {
         this.getSalaryUnit = this.getSalaryUnit.bind(this);
         this.onSalaryValChange = this.onSalaryValChange.bind(this);
         this.onSalaryValBlur = this.onSalaryValBlur.bind(this);
-        this.state = ({ timetableIDlist: [] })
+        this.handleJobTagsChange = this.handleJobTagsChange.bind(this);
+        this.getworkingTime = this.getworkingTime.bind(this);
+        this.state = ({ timetableIDlist: [], jobTags: [] })
     }
 
+
+
+    // handle job tags input change
+    handleJobTagsChange(jobTags) {
+        this.setState({ jobTags })
+    }
 
     //add timetable in form
     addTimeTable = () => {
@@ -74,7 +85,9 @@ class CreateJobForm extends Component {
             return;
         }
 
-        // can use data-binding to set
+
+
+
 
 
 
@@ -96,12 +109,53 @@ class CreateJobForm extends Component {
     }
 
 
+
+    // tạo ra workingTime bằng cách xử lí 2 mảng timetablelist và timetable_day_list
+    getworkingTime(timetablelist, timetable_day_list) {
+        console.log(this.state.timetableIDlist);
+        let workingTime = [];
+        //get all the day and its working time
+        for (var i in this.state.timetableIDlist) {
+            //get day
+            var id = this.state.timetableIDlist[i];
+            var day = timetable_day_list[prefixtimetable_day + id];
+            var startTime = moment(timetablelist[prefixTimetable_start + id]).format("HHmm");
+            var endTime = moment(timetablelist[prefixTimetable_end + id]).format("HHmm");
+            workingTime = workingTime.concat({ day, startTime, endTime });
+            console.log(id, timetable_day_list[prefixtimetable_day + id]);
+        }
+
+        return workingTime;
+    }
+
+
     handleSubmit = (e) => {
         e.preventDefault();
         this.props.form.validateFields((err, values) => {
             if (!err) {
                 console.log('Received values of form: ', values);
+                let workingTime = this.getworkingTime(values.timetablelist, values.timetable_day_list);
+
+                let data = {
+                    companyID: "5a84758a927fa5001fbd65c4",
+                    address: values.address,
+                    jobName: values.jobName,
+                    jobDescription: values.jobDescription,
+                    jobRequirement: values.jobRequirement,
+                    jobContent: values.jobContent,
+                    salary: {
+                        value: values.salary,
+                        unit: values.salary_unit ? values.salary_unit : "VND"
+                    },
+                    workingTime,
+                    tags: this.state.jobTags
+                };
+                console.log(data, this.props.xAuthToken);
+                this.props.submit_job(data, this.props.xAuthToken);
             }
+
+
+
         });
     }
 
@@ -177,70 +231,103 @@ class CreateJobForm extends Component {
         };
 
 
+
+
+
         //time table list
         getFieldDecorator('keys', { initialValue: [] });
         const keys = getFieldValue('keys');
         const timetableItems = this.state.timetableIDlist.map((id, index) => {
             return (
                 <FormItem
-                    {...formItemLayoutWithOutLabel}
 
-                    required={false}
+
+
                     key={id}
                 >
-                    {getFieldDecorator(`timetable_day_list[${prefixtimetable_day + id}]`, {
-                        initialValue: 'Thứ 2',
-                    })(
-                        <Select style={{ width: 70 }}>
-                            <Option value="Thứ 2">Thứ 2</Option>
-                            <Option value="Thứ 3">Thứ 3</Option>
-                            <Option value="Thứ 4">Thứ 4</Option>
-                            <Option value="Thứ 5">Thứ 5</Option>
-                            <Option value="Thứ 6">Thứ 6</Option>
-                            <Option value="Thứ 7">Thứ 7</Option>
-                            <Option value="CN">CN</Option>
-                        </Select>
-                    )}
+                    <Row>
+                        <Col xs={{ span: 6, offset: 8 }}
+                            sm={{ span: 6, offset: 8 }}>
+                            {getFieldDecorator(`timetable_day_list[${prefixtimetable_day + id}]`, {
+                                initialValue: '2',
+                            })(
+                                <Select >
+                                    <Option value="2">Thứ 2</Option>
+                                    <Option value="3">Thứ 3</Option>
+                                    <Option value="4">Thứ 4</Option>
+                                    <Option value="5">Thứ 5</Option>
+                                    <Option value="6">Thứ 6</Option>
+                                    <Option value="7">Thứ 7</Option>
+                                    <Option value="8">CN</Option>
+                                </Select>
+                            )}
 
+                        </Col>
+                        <Col xs={{ span: 8, offset: 1 }}
+                            sm={{ span: 8, offset: 1 }}>
+                            <FormItem
 
-                    {getFieldDecorator(`timetablelist[${prefixTimetable_start + id}]`, {
+                                hasFeedback
 
-                        rules: [{
-                            required: true,
+                                key={id}
+                            >
+                                {getFieldDecorator(`timetablelist[${prefixTimetable_start + id}]`, {
 
-                            message: "Nếu không có gì ở đây bạn có thể xóa nó đi",
-                        }],
-                    })(
-                        <TimePicker placeholder="Băt đầu" format='HH:mm' />
-                    )}
+                                    rules: [{
 
+                                        required: true,
 
-                    {getFieldDecorator(`timetablelist[${prefixTimetable_end + id}]`, {
+                                        message: "Xin thêm thời gian",
+                                    }],
+                                })(
+                                    <TimePicker placeholder="Băt đầu" format='HH:mm' style={{ width: '100%' }} />
+                                )}
+                            </FormItem>
+                        </Col>
+                    </Row>
 
-                        rules: [{
-                            required: true,
+                    <Col xs={{ span: 20, offset: 15 }}
+                        sm={{ span: 20, offset: 15 }}>
+                        
+                        <FormItem
 
-                            message: "Nếu không có gì ở đây bạn có thể xóa nó đi",
-                        }],
-                    })(
-                        <TimePicker placeholder="Kết thúc" format='HH:mm' />
-                    )}
+                          
+                            key={id}
+                        >
+                            {
 
-                    {keys.length > 1 ? (
-                        <Icon
-                            className="dynamic-delete-button"
-                            type="minus-circle-o"
-                            disabled={keys.length === 1}
-                            onClick={() => this.removeTimeTable(id)}
-                        />
-                    ) : null}
-                </FormItem>
+                                getFieldDecorator(`timetablelist[${prefixTimetable_end + id}]`, {
+
+                                    rules: [{
+                                        required: true,
+
+                                        message: "Xin thêm thời gian",
+                                    }],
+                                })(
+                                    <TimePicker placeholder="Kết thúc" format='HH:mm' />
+                                )
+                            }
+                            {
+                                keys.length > 1 ? (
+                                    <Icon
+                                        className="dynamic-delete-button"
+                                        type="minus-circle-o"
+                                        disabled={keys.length === 1}
+                                        onClick={() => this.removeTimeTable(id)}
+                                    />
+                                ) : null
+                            }
+                        </FormItem>
+
+                    </Col>
+
+                </FormItem >
             );
         });
 
 
 
-        //sign up form body
+        //createjob form body
         let singupForm =
             <Form onSubmit={this.handleSubmit}>
 
@@ -255,7 +342,7 @@ class CreateJobForm extends Component {
                         </span>
                     )}
                 >
-                    {getFieldDecorator('name', {
+                    {getFieldDecorator('jobName', {
                         rules: [{ required: true, message: 'Bạn phải nhập tên công việc', whitespace: true }],
                     })(
                         <Input />
@@ -306,7 +393,7 @@ class CreateJobForm extends Component {
                     {...formItemLayout}
                     label="Mô tả"
                 >
-                    {getFieldDecorator('description', {
+                    {getFieldDecorator('jobDescription', {
                         rules: [{
                             required: true, message: 'Mô tả công việc sẽ giúp người xem nhanh chóng nắm rõ công việc của bạn ',
                         }],
@@ -315,15 +402,33 @@ class CreateJobForm extends Component {
                     )}
                 </FormItem>
 
-
-
+                <FormItem
+                    {...formItemLayout}
+                    label="Địa chỉ làm việc"
+                >
+                    {getFieldDecorator('address')(
+                        <Input placeholder="Địa chỉ nơi làm việc" />
+                    )}
+                </FormItem>
+                <FormItem
+                    {...formItemLayout}
+                    label="Nội dung chi tiết"
+                >
+                    {getFieldDecorator('jobContent', {
+                        rules: [{
+                            required: true, message: 'Mô tả công việc chi tiết tốt sẽ giúp người xem nhanh chóng quyết định nộp đơn ứng tuyển hơn ',
+                        }],
+                    })(
+                        <TextArea placeholder="Mô tả chi tiết về công việc" autosize={{ minRows: 3, maxRows: 8 }} />
+                    )}
+                </FormItem>
 
 
                 <FormItem
                     {...formItemLayout}
                     label="Yêu cầu"
                 >
-                    {getFieldDecorator('requirement')(
+                    {getFieldDecorator('jobRequirement')(
                         <TextArea placeholder="Bạn cần gì ở ứng cử viên cho vị trí này" autosize={{ minRows: 3, maxRows: 5 }} />
                     )}
                 </FormItem>
@@ -339,7 +444,10 @@ class CreateJobForm extends Component {
                      </Button>
                 </FormItem>
                 {timetableItems}
-
+                <FormItem    {...formItemLayout}
+                    label="Tags">
+                    <TagsInput value={this.state.jobTags} onChange={this.handleJobTagsChange} inputProps={{ placeholder: "Thêm tags" }} />
+                </FormItem>
                 <FormItem {...tailFormItemLayout}>
                     <Button loading={this.props.isCheckingSignUpInfo} type="primary" htmlType="submit">ĐĂNG VIỆC</Button>
                 </FormItem>

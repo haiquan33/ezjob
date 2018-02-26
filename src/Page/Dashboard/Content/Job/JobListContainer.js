@@ -8,7 +8,7 @@ import WrappedCreateJobForm from './Form/CreateJobForm';
 import { Affix,Button,Modal } from 'antd';
 
 //API
-import { get_jobs } from '../../../../Services/API/jobAPI';
+import { get_jobs,submit_job } from '../../../../Services/API/jobAPI';
 
 //Redux component
 import { connect } from 'react-redux'
@@ -63,7 +63,7 @@ class JobListContainer extends Component {
                     closable={false}
                     afterClose={()=>this.afterCreateJobModalClose()}
                 >
-                    <WrappedCreateJobForm  />
+                    <WrappedCreateJobForm submit_job={this.props.submit_job} xAuthToken={this.props.xAuthToken} />
                 </Modal>
             </div>
         )
@@ -77,13 +77,15 @@ class JobListContainer extends Component {
 
 function mapState2Props(state) {
     return {
-        resultJobList: state.jobReducer.resultJobList
+        resultJobList: state.jobReducer.resultJobList,
+        xAuthToken:state.accountReducer.xAuthToken
     };
 }
 
 const mapDispatchToProps = dispatch => {
     return bindActionCreators({
-        get_jobs
+        get_jobs,
+        submit_job
 
     }, dispatch)
 

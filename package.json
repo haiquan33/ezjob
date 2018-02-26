@@ -23,6 +23,7 @@
     "react-router-redux": "^5.0.0-alpha.9",
     "react-scripts": "1.0.17",
     "react-simple-dropdown": "^3.2.0",
+    "react-tagsinput": "^3.19.0",
     "redux": "^3.7.2",
     "redux-thunk": "^2.2.0",
     "shortid": "^2.2.8"

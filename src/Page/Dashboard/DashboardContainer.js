@@ -58,7 +58,7 @@ class DashboardContainer extends Component {
                 <Layout >
                     <Header ><MyHeader siderCollapsed={this.state.siderCollapsed} toggleSiderCollapsed={this.toggleSiderCollapsed} /></Header>
                     <Content> 
-                        <Switch>
+                        <Switch> 
                             <Route exact path={`${this.props.match.url}/cv`} component={UserCV}  />
                             <Route exact path={`${this.props.match.url}/postedjobs/:postedType`} component={JobListContainer} />
                         </Switch>

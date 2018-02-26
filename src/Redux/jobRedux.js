@@ -21,7 +21,10 @@ import {LOGIN_GG_SUCCESS,
     SIGNOUT} from './Actions/actions' ;
 
 import {SET_RESULT_JOBs_LIST,
-        START_REQUESTING_JOB_LIST} from'./Actions/jobActions';
+        START_REQUESTING_JOB_LIST,
+        START_SUBMIT_JOB,
+        COMPLETE_SUBMIT_JOB,
+        ERROR_SUBMIT_JOB} from'./Actions/jobActions';
 
 
 
@@ -45,6 +48,8 @@ export const accountDefaultState = {
 export const jobDefaultState={
     isRequestingJobList:false,
     resultJobList:null,
+    isSubmitingJob:false,
+    submitError:null,
     urgentJobList:[
         {
             jobName:"Kĩ sư IT frontend",
@@ -173,7 +178,10 @@ export const jobReducer = (state = jobDefaultState , action) => {
     let count_temp=0;
     switch (action.type) {
         case START_REQUESTING_JOB_LIST: return {...state,isRequestingJobList:true};
-        case SET_RESULT_JOBs_LIST:return{...state,resultJobList:action.resultJobList, isRequestingJobList:false}
+        case SET_RESULT_JOBs_LIST:return{...state,resultJobList:action.resultJobList, isRequestingJobList:false};
+        case START_SUBMIT_JOB:return {...state,isSubmitingJob:true,submitError:null};
+        case COMPLETE_SUBMIT_JOB:return{...state,isSubmitingJob:false};
+        case ERROR_SUBMIT_JOB:return{...state,isSubmitingJob:false,submitError:action.error};
         default: return state;
     }
 }
